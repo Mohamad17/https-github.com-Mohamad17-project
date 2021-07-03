@@ -7,6 +7,7 @@ body {
 	direction: rtl !important;
 	text-align: right !important;
 	font-family: vazir !important;
+    background-color: #ebe5e5;
 }
 
 ul,a,p,h1,h2,h3,h4,h5,h6,li {
@@ -14,9 +15,9 @@ ul,a,p,h1,h2,h3,h4,h5,h6,li {
 	margin: 0;
 }
 
-main{
+/*main{
 	background-color: #ebe5e5;
-}
+}*/
 
 .font-size-12{
     font-size: 12px;
@@ -32,5 +33,9 @@ main{
 
 .width-16rem{
     width: 16rem;
+}
+
+.bg-custom-orange{
+    background-color: #e4730f;
 }
 

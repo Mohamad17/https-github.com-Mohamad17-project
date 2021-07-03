@@ -16,10 +16,10 @@
 			<div class="sMenu toggleMenu">
 				<a href="{{ route('admin.market.category.index')}}" class="sidebarLinkToggle">دسته بندی</a>
 				<a href="#" class="sidebarLinkToggle">فرم کالا</a>
-				<a href="#" class="sidebarLinkToggle">برندها</a>
+				<a href="{{ route('admin.market.brand.index')}}" class="sidebarLinkToggle">برندها</a>
 				<a href="#" class="sidebarLinkToggle">کالاها</a>
 				<a href="#" class="sidebarLinkToggle">انبار</a>
-				<a href="#" class="sidebarLinkToggle">نظرات</a>
+				<a href="{{ route('admin.market.comment.index')}}" class="sidebarLinkToggle">نظرات</a>
 			</div>
 		</div>
 		<div class="sideMenuToggle">
@@ -63,13 +63,13 @@
 				<i class="angel fa fa-angle-left"></i>
 			</div>
 			<div class="sMenu toggleMenu">
-				<a href="#" class="sidebarLinkToggle">کپن تخفیف</a>
-				<a href="#" class="sidebarLinkToggle">تخفیف عمومی</a>
-				<a href="#" class="sidebarLinkToggle">فروش شگفت انگیز</a>
+				<a href="{{ route('admin.market.discount.coupon')}}" class="sidebarLinkToggle">کپن تخفیف</a>
+				<a href="{{ route('admin.market.discount.common')}}" class="sidebarLinkToggle">تخفیف عمومی</a>
+				<a href="{{ route('admin.market.discount.amazingSale')}}" class="sidebarLinkToggle">فروش شگفت انگیز</a>
 			</div>
 		</div>
-		<a href="#" class="sidebarLink">
-			<i class="fa fa-home"></i>
+		<a href="{{ route('admin.market.delivery.index')}}" class="sidebarLink">
+			<i class="fa fa-truck"></i>
 			<span>روش های ارسال</span>
 		</a>
 		<div class="divider">بخش محتوی</div>
