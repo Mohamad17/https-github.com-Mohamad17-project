@@ -31,12 +31,12 @@
 				<i class="angel fa fa-angle-left"></i>
 			</div>
 			<div class="sMenu toggleMenu">
-				<a href="#" class="sidebarLinkToggle"> جدید</a>
-				<a href="#" class="sidebarLinkToggle">در حال ارسال</a>
-				<a href="#" class="sidebarLinkToggle">پرداخت نشده</a>
-				<a href="#" class="sidebarLinkToggle">باطل شده</a>
-				<a href="#" class="sidebarLinkToggle">مرجوعی</a>
-				<a href="#" class="sidebarLinkToggle">تمام سفارشات</a>
+				<a href="{{ route('admin.market.order.new') }}" class="sidebarLinkToggle"> جدید</a>
+				<a href="{{ route('admin.market.order.sending') }}" class="sidebarLinkToggle">در حال ارسال</a>
+				<a href="{{ route('admin.market.order.unpaid') }}" class="sidebarLinkToggle">پرداخت نشده</a>
+				<a href="{{ route('admin.market.order.canceled') }}" class="sidebarLinkToggle">باطل شده</a>
+				<a href="{{ route('admin.market.order.returned') }}" class="sidebarLinkToggle">مرجوعی</a>
+				<a href="{{ route('admin.market.order.allOrder') }}" class="sidebarLinkToggle">تمام سفارشات</a>
 			</div>
 		</div>
 		<div class="sideMenuToggle">
@@ -48,10 +48,10 @@
 				<i class="angel fa fa-angle-left"></i>
 			</div>
 			<div class="sMenu toggleMenu">
-				<a href="#" class="sidebarLinkToggle">تمام پرداخت ها</a>
-				<a href="#" class="sidebarLinkToggle">پرداخت های آنلاین</a>
-				<a href="#" class="sidebarLinkToggle">پرداخت های آفلاین</a>
-				<a href="#" class="sidebarLinkToggle">پرداخت در محل</a>
+				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">تمام پرداخت ها</a>
+				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">پرداخت های آنلاین</a>
+				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">پرداخت های آفلاین</a>
+				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">پرداخت در محل</a>
 			</div>
 		</div>
 		<div class="sideMenuToggle">
@@ -82,7 +82,7 @@
 			<span>پست ها</span>
 		</a>
 		<a href="#" class="sidebarLink">
-			<i class="fas fa-bars"></i>
+			<i class="fa fa-comments"></i>
 			<span>نظرات</span>
 		</a>
 		<a href="#" class="sidebarLink">

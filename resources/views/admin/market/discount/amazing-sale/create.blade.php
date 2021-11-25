@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-<title>ایجاد کپن تخفیف</title>
+<title>افزودن کالا به  فروش شگفت انگیز</title>
 @endsection
 
 @section('content')
@@ -8,50 +8,29 @@
 	<ol class="breadcrumb font-size-12">
 		<li class="breadcrumb-item"><a href="#">خانه</a></li>
 		<li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
-		<li class="breadcrumb-item active">کپن تخفیف</li>
-		<li class="breadcrumb-item active" aria-current="page">ایجاد کپن تخفیف</li>
+		<li class="breadcrumb-item active">فروش شگفت انگیز</li>
+		<li class="breadcrumb-item active" aria-current="page">افزودن کالا به  فروش شگفت انگیز</li>
 	</ol>
 </nav>
 <div class="col-md-12 mt-4">
 	<div class="content">
-		<h4>ایجاد کپن تخفیف</h4>
+		<h4>افزودن کالا به  فروش شگفت انگیز</h4>
 		<div class="d-flex justify-content-between align-items-center my-3">
-			<a href="{{ route('admin.market.discount.coupon') }}" class="btn btn-info btn-sm">بازگشت</a>
+			<a href="{{ route('admin.market.discount.amazingSale') }}" class="btn btn-info btn-sm">بازگشت</a>
 		</div>
 		<form class="row" action="#" method="post">
 			<div class="col-md-6 mb-2">
 				<fieldset class="form-group">
-					<label for="name">کد کپن</label>
+					<label for="name">نام کالا</label>
 					<input class="form-control form-control-sm" name="name" type="text" placeholder="">
 				</fieldset>
-			</div>
-			<div class="col-md-6 mb-2">
-				<fieldset class="form-group">
-					<label for="name">نوع کپن</label>
-					<select class="form-control form-control-sm" name="price">
-						<option value="1">عمومی</option>
-						<option value="2">اختصاصی</option>
-					</select>
-				</fieldset>
-			</div>
+			</div>			
 			<div class="col-md-6 mb-2">
 				<fieldset class="form-group">
 					<label for="name">درصد تخفیف</label>
 					<input class="form-control form-control-sm" name="delivery_time" type="text" placeholder="">
 				</fieldset>
-			</div>
-			<div class="col-md-6 mb-2">
-				<fieldset class="form-group">
-					<label for="name">حداکثر تخفیف</label>
-					<input class="form-control form-control-sm" name="delivery_time" type="text" placeholder="">
-				</fieldset>
-			</div>
-			<div class="col-md-6 mb-2">
-				<fieldset class="form-group">
-					<label for="name">عنوان مناسبت</label>
-					<input class="form-control form-control-sm" name="delivery_time" type="text" placeholder="">
-				</fieldset>
-			</div>
+			</div>			
 			<div class="col-md-6 mb-2">
 				<fieldset class="form-group">
 					<label for="name">تاریخ شروع</label>

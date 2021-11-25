@@ -26,7 +26,7 @@
 						<th>کد کپن</th>
 						<th>درصد تخفیف</th>
 						<th>سقف تخفیف</th>
-						<th>نوه کپن</th>
+						<th>نوع کپن</th>
 						<th>تاریخ شروع</th>
 						<th>تاریخ پایان</th>
 						<th scope="col" class="max-width-16rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>

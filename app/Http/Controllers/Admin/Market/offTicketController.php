@@ -33,6 +33,6 @@ class offTicketController extends Controller
 
     public function amazingSaleCreate()
     {
-        return view('admin.market.amazing-sale.create');
+        return view('admin.market.discount.amazing-sale.create');
     }
 }

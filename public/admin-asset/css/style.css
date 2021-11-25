@@ -22,6 +22,12 @@ ul,a,p,h1,h2,h3,h4,h5,h6,li {
 .font-size-12{
     font-size: 12px;
 }
+.font-size-10{
+    font-size: 10px;
+}
+.font-size-8{
+    font-size: 8px;
+}
 
 .content table{
     font-size: .8rem;
@@ -30,12 +36,31 @@ ul,a,p,h1,h2,h3,h4,h5,h6,li {
 .max-width-16rem{
     max-width: 16rem;
 }
+.max-width-12rem{
+    max-width: 12rem;
+}
+
+.max-width-6rem{
+    max-width: 6rem;
+}
+.max-width-9rem{
+    max-width: 9rem;
+}
 
 .width-16rem{
     width: 16rem;
+}
+.width-12rem{
+    width: 12rem;
+}
+.width-9rem{
+    width: 9rem;
+}
+
+.width-6rem{
+    width: 6rem;
 }
 
 .bg-custom-orange{
     background-color: #e4730f;
 }
-
