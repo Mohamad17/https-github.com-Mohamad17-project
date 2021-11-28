@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Market;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class orderController extends Controller
+class OrderController extends Controller
 {
     public function allOrder(){
         return view('admin.market.order.allOrder');

@@ -23,7 +23,7 @@ use App\Http\Controllers\Admin\Market\DeliveryController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\PermissionController;
-use App\Http\Controllers\Admin\Market\offTicketController;
+use App\Http\Controllers\Admin\Market\OffTicketController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
 
@@ -84,12 +84,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     });
     //off group
     Route::prefix('discount')->group(function () {
-      Route::get('/coupon', [offTicketController::class, 'coupon'])->name('admin.market.discount.coupon');
-      Route::get('/coupon/create', [offTicketController::class, 'couponCreate'])->name('admin.market.discount.coupon.create');
-      Route::get('/common-discount', [offTicketController::class, 'commonDiscount'])->name('admin.market.discount.common');
-      Route::get('/common-discount/create', [offTicketController::class, 'commonDiscountCreate'])->name('admin.market.discountCommon.create');
-      Route::get('/amazing-sale', [offTicketController::class, 'amazingSale'])->name('admin.market.discount.amazingSale');
-      Route::get('/amazing-sale/create', [offTicketController::class, 'amazingSaleCreate'])->name('admin.market.discount.amazingSale.create');
+      Route::get('/coupon', [OffTicketController::class, 'coupon'])->name('admin.market.discount.coupon');
+      Route::get('/coupon/create', [OffTicketController::class, 'couponCreate'])->name('admin.market.discount.coupon.create');
+      Route::get('/common-discount', [OffTicketController::class, 'commonDiscount'])->name('admin.market.discount.common');
+      Route::get('/common-discount/create', [OffTicketController::class, 'commonDiscountCreate'])->name('admin.market.discountCommon.create');
+      Route::get('/amazing-sale', [OffTicketController::class, 'amazingSale'])->name('admin.market.discount.amazingSale');
+      Route::get('/amazing-sale/create', [OffTicketController::class, 'amazingSaleCreate'])->name('admin.market.discount.amazingSale.create');
     });
     //order group
     Route::prefix('order')->group(function () {
@@ -284,3 +284,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::delete('/delete/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
   });
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

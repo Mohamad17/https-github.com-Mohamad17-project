@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin\Market;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class offTicketController extends Controller
+class OffTicketController extends Controller
 {
-    
+
     public function coupon()
     {
         return view('admin.market.discount.coupon.index');
