@@ -33,6 +33,9 @@ ul,a,p,h1,h2,h3,h4,h5,h6,li {
     font-size: .8rem;
 }
 
+.max-width-22rem{
+    max-width: 22rem;
+}
 .max-width-16rem{
     max-width: 16rem;
 }
@@ -47,6 +50,9 @@ ul,a,p,h1,h2,h3,h4,h5,h6,li {
     max-width: 9rem;
 }
 
+.width-22rem{
+    width: 22rem;
+}
 .width-16rem{
     width: 16rem;
 }
@@ -63,4 +69,17 @@ ul,a,p,h1,h2,h3,h4,h5,h6,li {
 
 .bg-custom-orange{
     background-color: #e4730f;
+}
+
+.mt-15px{
+    margin-top: 15px;
+}
+.mt-20px{
+    margin-top: 20px;
+}
+.mt-32px{
+    margin-top: 32px;
+}
+.mt-35px{
+    margin-top: 35px;
 }

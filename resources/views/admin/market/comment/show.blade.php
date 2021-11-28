@@ -8,7 +8,6 @@
 	<ol class="breadcrumb font-size-12">
 		<li class="breadcrumb-item"><a href="#">خانه</a></li>
 		<li class="breadcrumb-item"><a href="#">بخش فروش</a></li>
-		<li class="breadcrumb-item active">دسته بندی</li>
 		<li class="breadcrumb-item active">بخش نظرات</li>
 		<li class="breadcrumb-item active" aria-current="page">نمایش نظر</li>
 	</ol>
@@ -44,7 +43,7 @@
 				<textarea rows="4" class="form-control" name="body">متن پاسخ ...</textarea>
 			</div>
 			<div class="form-group mb-2">
-				<button class="btn btn-sm btn-primary" type="submit">ویرایش</button>
+				<button class="btn btn-sm btn-primary" type="submit">ثبت پاسخ</button>
 			</div>
 		</form>
 	</div>

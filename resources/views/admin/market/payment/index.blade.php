@@ -13,7 +13,7 @@
 </nav>
 <div class="col-md-12 mt-4">
 	<div class="content">
-		<h4>سفارشات</h4>
+		<h4>پرداخت ها</h4>
 		<div class="d-flex justify-content-between align-items-center my-3">
 			<a href="" class="btn btn-info btn-sm disabled">ایجاد پرداخت چدید</a>
 			<input type="text" class="form-controll form-controll-sm form-text" name="search" placeholder="جستجو">
