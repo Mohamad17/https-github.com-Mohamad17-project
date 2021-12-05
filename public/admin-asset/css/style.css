@@ -1,85 +1,123 @@
 @font-face {
-	font-family: vazir;
-	src: url("../fonts/Vazir.woff") format("woff");
+    font-family: vazir;
+    src: url("../fonts/Vazir.woff") format("woff");
 }
 
 body {
-	direction: rtl !important;
-	text-align: right !important;
-	font-family: vazir !important;
+    direction: rtl !important;
+    text-align: right !important;
+    font-family: vazir !important;
     background-color: #ebe5e5;
 }
 
-ul,a,p,h1,h2,h3,h4,h5,h6,li {
-	padding: 0;
-	margin: 0;
+ul,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li {
+    padding: 0;
+    margin: 0;
 }
 
 /*main{
 	background-color: #ebe5e5;
 }*/
 
-.font-size-12{
+.font-size-12 {
     font-size: 12px;
 }
-.font-size-10{
+
+.font-size-10 {
     font-size: 10px;
 }
-.font-size-8{
+
+.font-size-8 {
     font-size: 8px;
 }
 
-.content table{
+.content table {
     font-size: .8rem;
 }
 
-.max-width-22rem{
+.max-width-22rem {
     max-width: 22rem;
 }
-.max-width-16rem{
+
+.max-width-16rem {
     max-width: 16rem;
 }
-.max-width-12rem{
+
+.max-width-12rem {
     max-width: 12rem;
 }
 
-.max-width-6rem{
+.max-width-6rem {
     max-width: 6rem;
 }
-.max-width-9rem{
+
+.max-width-9rem {
     max-width: 9rem;
 }
 
-.width-22rem{
+.width-22rem {
     width: 22rem;
 }
-.width-16rem{
+
+.width-16rem {
     width: 16rem;
 }
-.width-12rem{
+
+.width-12rem {
     width: 12rem;
 }
-.width-9rem{
+
+.width-9rem {
     width: 9rem;
 }
 
-.width-6rem{
+.width-6rem {
     width: 6rem;
 }
 
-.bg-custom-orange{
+.bg-custom-orange {
     background-color: #e4730f;
 }
 
-.mt-15px{
+.mt-15px {
     margin-top: 15px;
 }
-.mt-20px{
+
+.mt-20px {
     margin-top: 20px;
 }
-.mt-32px{
+
+.mt-32px {
     margin-top: 32px;
 }
-.mt-35px{
+
+.mt-35px {
     margin-top: 35px;
+}
+
+
+/* sweet alert reform */
+.swal2-html-container {
+    text-align: center;
+}
+
+
+/* toast wrapper */
+.toast-wrapper {
+    position: fixed;
+    z-index: 9999;
+    top: 3rem;
+    left: 0;
+    width: 26rem;
+    max-width: 80%;
+    padding: 2rem;
 }
