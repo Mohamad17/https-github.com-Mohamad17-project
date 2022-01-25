@@ -21,38 +21,98 @@
         <form class="row" action="#" method="post">
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">عنوان مقاله</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="عنوان مقاله ...">
+                    <label for="title">عنوان مقاله</label>
+                    <input value="{{ old('title') }}" class="form-control form-control-sm" name="title" id="title" type="text" placeholder="عنوان مقاله ...">
                 </fieldset>
+                @error('title')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">دسته بندی</label>
-                    <select class="form-control form-control-sm" name="parent_id">
+                    <label for="category_id">دسته بندی</label>
+                    <select class="form-control form-control-sm" name="category_id" id="category_id">
                         <option value="">دسته بندی را انتخاب شود</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @if (old('category_id')== $category->id) selected @endif>{{ $category->name }}</option>
+                        @endforeach
                     </select>
                 </fieldset>
+                @error('category_id')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">تصویر</label>
-                    <input type="file" name="logo" class="form-control form-control-sm">
+                    <label for="image">تصویر</label>
+                    <input type="file" name="image" id="image" class="form-control form-control-sm">
                 </fieldset>
+                @error('image')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">تاریخ انتشار</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="تاریخ انتشار ...">
+                    <label for="status">وضعیت</label>
+                    <select class="form-control form-control-sm" name="status" id="status">
+                        <option value="0" @if (old('status')==0) selected @endif>غیر فعال</option>
+                        <option value="1" @if (old('status')==1) selected @endif>فعال</option>
+                    </select>
                 </fieldset>
+                @error('status')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-md-6 mb-2">
+                <fieldset class="form-group">
+                    <label for="commentable">قابلیت ثبت نظر</label>
+                    <select class="form-control form-control-sm" name="commentable" id="commentable">
+                        <option value="0" @if (old('commentable')==0) selected @endif>غیر فعال</option>
+                        <option value="1" @if (old('commentable')==1) selected @endif>فعال</option>
+                    </select>
+                </fieldset>
+                @error('commentable')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-md-6 mb-2">
+                <fieldset class="form-group">
+                    <label for="published_at">تاریخ انتشار</label>
+                    <input class="form-control form-control-sm" name="published_at" id="published_at" type="text" placeholder="تاریخ انتشار ...">
+                </fieldset>
+                @error('published_at')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-12 mb-2">
+                <div class="form-group">
+                    <label for="tags">تگ ها</label>
+                    <input type="hidden" class="form-control form-control-sm"  name="tags" id="tags" value="{{ old('tags') }}">
+                    <select class="select2 form-control form-control-sm" id="select_tags" multiple>
+
+                    </select>
+                </div>
+                @error('tags')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-12 mb-2">
+                <fieldset class="form-group">
+                    <label for="summary">خلاصه مقاله</label>
+                    <textarea class="form-control form-control-sm" id="summary" name="summary" cols="6">{{ old('summary') }}</textarea>
+                </fieldset>
+                @error('tasummarygs')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-12 mb-2">
                 <fieldset class="form-group">
                     <label for="body">محتوی مقاله</label>
-                    <textarea class="form-control form-control-sm" id="body" name="body" cols="6"></textarea>
+                    <textarea class="form-control form-control-sm" id="body" name="body" cols="6">{{ old('body') }}</textarea>
                 </fieldset>
+                @error('body')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <button class="btn btn-sm btn-primary" type="submit">ثبت</button>
@@ -66,5 +126,35 @@
 <script src="{{ asset('admin-asset/ckeditor/ckeditor.js') }}"></script>
 <script>
     CKEDITOR.replace('body');
+    CKEDITOR.replace('summary');
+</script>
+<script>
+    $(document).ready(function() {
+        var tags = $('#tags');
+        var select_tags = $('#select_tags');
+        var default_tags= tags.val();
+        var default_data= null;
+       
+        if(tags.val() !== null && tags.val().length > 0){
+            default_data = default_tags.split(',');
+        }
+
+        select_tags.select2({
+            placeholder: 'لطفاً تگ های خود را وارد کنید',
+            tags: true,
+            data:default_data
+        });
+        select_tags.children('option').attr('selected', true).trigger('change');
+
+        $('form').submit(getTags);
+
+        function getTags(event) {
+            if (select_tags.val() !== null && select_tags.val().length > 0) {
+                var selectedSource = select_tags.val().join(',');
+                tags.val(selectedSource)
+            }
+        }
+    });
+
 </script>
 @endsection

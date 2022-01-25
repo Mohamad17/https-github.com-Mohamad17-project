@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'dc6a617f8a6f41606d7c924ab35563dffa04dc35',
+    'reference' => '56ab789dba47ac8364204696faf8c32e14dd2ed7',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -38,12 +38,30 @@
       ),
       'reference' => 'dff976c2f3487d42c1db75a3b180e2b9f0e72ce0',
     ),
+    'cocur/slugify' => 
+    array (
+      'pretty_version' => 'v4.0.0',
+      'version' => '4.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3f1ffc300f164f23abe8b64ffb3f92d35cec8307',
+    ),
     'cordoval/hamcrest-php' => 
     array (
       'replaced' => 
       array (
         0 => '*',
       ),
+    ),
+    'cviebrock/eloquent-sluggable' => 
+    array (
+      'pretty_version' => '8.0.8',
+      'version' => '8.0.8.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '16e21db24d80180f870c3c7c4faf3d3af23f4117',
     ),
     'dasprid/enum' => 
     array (
@@ -431,6 +449,24 @@
         0 => 'v8.44.0',
       ),
     ),
+    'intervention/image' => 
+    array (
+      'pretty_version' => '2.7.0',
+      'version' => '2.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9a8cc99d30415ec0b3f7649e1647d03a55698545',
+    ),
+    'intervention/imagecache' => 
+    array (
+      'pretty_version' => '2.5.1',
+      'version' => '2.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e714f13298ecaf9b2d11cb7106a0415d5615cbe5',
+    ),
     'jaybizzle/crawler-detect' => 
     array (
       'pretty_version' => 'v1.2.109',
@@ -490,7 +526,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'dc6a617f8a6f41606d7c924ab35563dffa04dc35',
+      'reference' => '56ab789dba47ac8364204696faf8c32e14dd2ed7',
     ),
     'laravel/sail' => 
     array (

@@ -14,6 +14,7 @@
 <div class="col-md-12 mt-4">
     <div class="content">
         <h4>دسته بندی</h4>
+        @include('admin.alerts.alert-section.success')
         <div class="d-flex justify-content-between align-items-center my-3">
             <a href="{{ route('admin.content.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
             <input type="text" class="form-controll form-controll-sm form-text" name="search" placeholder="جستجو">
@@ -37,7 +38,7 @@
                     <tr>
                         <th scope="row">{{ $key+1 }}</th>
                         <td>{{ $postCategory->name }}</td>
-                        <td><img src="{{ $postCategory->image }}" alt="category image" class="img-fluid" width="50" height="50"></td>
+                        <td><img src="{{ asset($postCategory->image['indexArray'][$postCategory->image['currentImage']]) }}" alt="category image" class="img-fluid" width="50"></td>
                         <td>{{ $postCategory->description }}</td>
                         <td>{{ $postCategory->slug }}</td>
                         <td>{{ $postCategory->tags }}</td>
@@ -49,7 +50,7 @@
                             <form class="d-inline" action="{{ route('admin.content.category.destroy' ,[$postCategory->id]) }}" method="POST">
                                 @csrf
                                 {{ method_field('delete') }}
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
+                                <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash mx-1"></i>حذف</button>
                             </form>
                         </td>
                     </tr>
@@ -75,14 +76,52 @@ function changeStatus(id){
             if(response.status){
                 if(response.checked){
                     element.prop('checked',true);
+                    successAlert('وضعیت با موفقیت فعال شد');
                 }else{
                     element.prop('checked',false);
+                    successAlert('وضعیت با موفقیت غیر فعال شد');
                 }
             }else{
                 element.prop('checked',exStatus);
+                errorAlert('تغییر وضعیت انجام نشد');
             }
+        },
+        error: function(){
+            element.prop('checked',exStatus);
+            errorAlert('تغییر وضعیت انجام نشد');
         }
     });
+
+    function successAlert(message){
+        var toastTag='<section class="toast" data-delay="5000">\n'+
+                        '<section class="toast-body py-3 d-flex bg-success text-white">\n'+
+                        '<strong class="ml-auto">'+message+'</strong>\n'+
+                        '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n'+
+                        '<span aria-hidden="true">&times;</span>\n'+
+                        '</button>\n'+
+                        '</section>\n'+
+                        '</section>';
+        $('.toast-wrapper').append(toastTag);
+        $('.toast').toast('show').delay(5500).queue(function() {
+            $(this).remove();
+        });
+    }
+    function errorAlert(message){
+        var toastTag='<section class="toast" data-delay="5000">\n'+
+                        '<section class="toast-body py-3 d-flex bg-danger text-white">\n'+
+                        '<strong class="ml-auto">'+message+'</strong>\n'+
+                        '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n'+
+                        '<span aria-hidden="true">&times;</span>\n'+
+                        '</button>\n'+
+                        '</section>\n'+
+                        '</section>';
+        $('.toast-wrapper').append(toastTag);
+        $('.toast').toast('show').delay(5500).queue(function() {
+            $(this).remove();
+        });
+    }
 }
 </script>
+
+@include('admin.alerts.sweetalert.delete-confirm',['className'=>'delete'])
 @endsection

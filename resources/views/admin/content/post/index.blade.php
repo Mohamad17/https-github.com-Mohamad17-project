@@ -30,26 +30,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($posts as $key=>$post)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>بررسی سیستم عامل لینوکس</td>
-                        <td>سیستم عامل</td>
-                        <td><img src="asset/images/avatar-2.jpg" alt="brand"></td>
+                        <th scope="row">{{ $key+1 }}</th>
+                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->postCategory->name }}</td>
+                        <td><img src="{{ asset($post->image) }}" alt="category image" class="img-fluid" width="50"></td>
                         <td class="width-16rem">
                             <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>بررسی توزیع لینوکسی مانجارو</td>
-                        <td>سیستم عامل</td>
-                        <td><img src="asset/images/avatar-2.jpg" alt="brand"></td>
-                        <td class="width-16rem">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

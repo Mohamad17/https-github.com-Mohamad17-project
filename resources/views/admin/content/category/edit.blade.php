@@ -33,13 +33,13 @@
             <div class="col-md-6 mb-2">
                 <div class="form-group">
                     <label for="select_tags">تگ ها</label>
-                    <input type="hidden" class="form-control form-control-sm"  name="tags" id="tags" value="{{ old('tags',$postCategory->tags) }}">
+                    <input type="hidden" class="form-control form-control-sm" name="tags" id="tags" value="{{ old('tags',$postCategory->tags) }}">
                     <select class="select2 form-control form-control-sm" id="select_tags" multiple>
 
                     </select>
                 </div>
                 @error('tags')
-                    <small class="text-danger">{{ $message }}</small>
+                <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
             <div class="col-md-6 mb-2">
@@ -62,6 +62,26 @@
                 @error('image')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
+                @php
+                $number=1;
+                @endphp
+                <div class="custom-control custom-radio">
+                    <div class="row">
+                        @foreach ($postCategory->image['indexArray'] as $key=>$image)
+                        <div class="col-md-{{ 6/$number }}">
+                            <input type="radio" value="{{ $key }}" class="custom-control-input" name="currentImage" id="{{ $number }}" @if ($key==$postCategory->image['currentImage'])
+                                checked
+                            @endif>
+                            <label class="custom-control-label" for="{{ $number }}">
+                                <img src="{{ asset($image) }}" class="img-fluid w-100">
+                            </label>
+                        </div>
+                        @php
+                        $number++;
+                        @endphp
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="col-12 mb-2">
                 <fieldset class="form-group">
@@ -85,17 +105,17 @@
     $(document).ready(function() {
         var tags = $('#tags');
         var select_tags = $('#select_tags');
-        var default_tags= tags.val();
-        var default_data= null;
-       
-        if(tags.val() !== null && tags.val().length > 0){
+        var default_tags = tags.val();
+        var default_data = null;
+
+        if (tags.val() !== null && tags.val().length > 0) {
             default_data = default_tags.split(',');
         }
 
         select_tags.select2({
-            placeholder: 'لطفاً تگ های خود را وارد کنید',
-            tags: true,
-            data:default_data
+            placeholder: 'لطفاً تگ های خود را وارد کنید'
+            , tags: true
+            , data: default_data
         });
         select_tags.children('option').attr('selected', true).trigger('change');
 

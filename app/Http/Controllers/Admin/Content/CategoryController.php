@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Content;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Content\PostCategory;
+use App\Http\Services\Image\ImageService;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
 
 class CategoryController extends Controller
@@ -23,14 +22,21 @@ class CategoryController extends Controller
         return view('admin.content.category.create');
     }
 
-    public function store(PostCategoryRequest $request)
+    public function store(PostCategoryRequest $request, ImageService $imageService)
     {
-        // dd($request->all());
         $inputs= $request->all();
-        $inputs['slug'] = str_replace(' ', '-', $inputs['name']) . '-' . Str::random(5);
-        $inputs['image'] = 'image';
+        if($request->hasFile('image')){
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'post-category');
+            $image= $imageService->createIndexAndSave($request->file('image'));
+            $inputs['image'] = $image;
+        }
+        if($image === false)
+        {
+            return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+        }
+        
         PostCategory::create($inputs);
-        return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی شما باموفقیت اضافه شد');
+        return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی شما با موفقیت اضافه شد');
     }
 
    
@@ -46,19 +52,36 @@ class CategoryController extends Controller
     }
 
   
-    public function update(PostCategoryRequest $request, PostCategory $postCategory)
+    public function update(PostCategoryRequest $request, PostCategory $postCategory, ImageService $imageService)
     {
         $inputs= $request->all();
-        $inputs['image'] = 'image';
+        if($request->hasFile('image')){
+            if(!empty($inputs['image'])){
+                $imageService->deleteDirectoryAndFiles($postCategory->image['directory']);
+            }
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'post-category');
+            $image= $imageService->createIndexAndSave($request->file('image'));
+            if($image === false)
+            {
+                return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+            }
+            $inputs['image'] = $image;
+        }elseif(isset($inputs['currentImage']) && !empty($postCategory->image))
+        {
+            $image = $postCategory->image;
+            $image['currentImage'] = $inputs['currentImage'];
+            $inputs['image'] = $image;
+        }
+        
         $postCategory->update($inputs);
-        return redirect()->route('admin.content.category.index');
+        return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی شما با موفقیت ویرایش شد');
     }
 
    
     public function destroy(PostCategory $postCategory)
     {
         $postCategory->delete();
-        return back();
+        return back()->with('swal-success','دسته بندی شما با موفقیت حذف شد');
     }
 
     public function status(PostCategory $postCategory)
