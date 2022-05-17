@@ -20,32 +20,34 @@
 		</div>
 		<div class="card mb-4">
 			<div class="card-header bg-custom-orange text-white">
-				<span class="ml-1">کامران محمدی</span>
+				<span class="ml-1">{{ $comment->user->fullName }}</span>
 				<span class="ml-1">-</span>
-				<span class="ml-1">38475</span>
+				<span class="ml-1">{{ $comment->author_id }}</span>
 			</div>
 			<div class="card-body">
 				<div class="card-title">
-					<span class="ml-1">مشخصات کالا :</span>
-					<span class="ml-1">گوشی نوکیا x-60</span>
-					<span class="ml-1">کد کالا :</span>
-					<span class="ml-1">2564</span>
+					<span class="ml-1">عنوان مقاله  :</span>
+					<span class="ml-1">{{  $comment->commentable->title  }}</span>
+					<span class="ml-1">کد مقاله :</span>
+					<span class="ml-1">{{ $comment->commentable_id }}</span>
 				</div>
 				<div class="blockquote-footer">
-					به نظرم گوشی عالیه هست فقط یه کم داغ می کنه
+					{{ $comment->body }}
 				</div>
 			</div>
 		</div>
-
-		<form action="#" method="post">
+		@if ($comment->parent_id==null)
+		<form action="{{ route('admin.content.comment.answer', [$comment->id]) }}" method="post">
+			@csrf
 			<div class="form-group">
-				<label for="name">پاسخ ادمین</label>
+				<label for="body">پاسخ ادمین</label>
 				<textarea rows="4" class="form-control" name="body">متن پاسخ ...</textarea>
 			</div>
 			<div class="form-group mb-2">
-				<button class="btn btn-sm btn-primary" type="submit">ویرایش</button>
+				<button class="btn btn-sm btn-primary" type="submit">ارسال پاسخ</button>
 			</div>
 		</form>
+		@endif
 	</div>
 </div>
 @endsection

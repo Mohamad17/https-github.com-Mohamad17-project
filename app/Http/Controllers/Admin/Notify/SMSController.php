@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Notify;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Notify\SmsRequest;
+use App\Models\Notify\SMS;
 use Illuminate\Http\Request;
 
 class SMSController extends Controller
@@ -14,7 +16,8 @@ class SMSController extends Controller
      */
     public function index()
     {
-        return view('admin.notify.sms.index');
+        $sms= SMS::orderBy('created_at', 'desc')->simplePaginate(15);
+        return view('admin.notify.sms.index', compact('sms'));
     }
 
     /**
@@ -33,31 +36,18 @@ class SMSController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SmsRequest $request)
     {
-        //
+        $timestampPublish= substr($request->published_at, 0, 10);
+        $inputs= $request->all();
+        $inputs['published_at']= date('Y-m-d H:i:s', (int)$timestampPublish);
+        SMS::create($inputs);
+        return redirect()->route('admin.notify.sms.index')->with("swal-success", "پیامک شما با موفقیت اضافه شد");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(SMS $sms)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('admin.notify.sms.edit', compact('sms'));
     }
 
     /**
@@ -67,9 +57,13 @@ class SMSController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SmsRequest $request, SMS $sms)
     {
-        //
+        $timestampPublish= substr($request->published_at, 0, 10);
+        $inputs= $request->all();
+        $inputs['published_at']= date('Y-m-d H:i:s', (int)$timestampPublish);
+        $sms->update($inputs);
+        return redirect()->route('admin.notify.sms.index')->with("swal-success", "پیامک شما با موفقیت ویرایش شد");
     }
 
     /**
@@ -78,8 +72,25 @@ class SMSController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SMS $sms)
     {
-        //
+        $sms->delete();
+        return back()->with('swal-success', 'پیامک شما با موفقیت حذف شد');
+    }
+
+    public function status(SMS $sms)
+    {
+        $sms->status= $sms->status == 0 ? 1 : 0;
+        $result=$sms->save();
+        if($result){
+            if($sms->status==0){
+                return response()->json(['status'=> true, 'checked'=>false]);
+            }else{
+                return response()->json(['status'=> true, 'checked'=>true]);
+            }
+
+        }else{
+            return response()->json(['status'=> false]);
+        }
     }
 }

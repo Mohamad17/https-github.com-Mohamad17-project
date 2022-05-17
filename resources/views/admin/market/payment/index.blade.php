@@ -32,46 +32,28 @@
 					</tr>
 				</thead>
 				<tbody>
+					@foreach ($payments as $payment)
 					<tr>
-						<th scope="row">1</th>
-						<td>95065485</td>
-						<td>ملی</td>
-						<td>محمد رحمتی</td>
-						<td>پرداخت شده</td>
-						<td>آنلاین</td>						
+						<th scope="row">{{ $loop->iteration }}</th>
+						<td>{{ $payment->paymentable->transaction_id?? "-"}}</td>
+						<td>{{ $payment->paymentable->gateway??"-"}}</td>
+						<td>{{ $payment->user->full_name }}</td>
+						<td class="{{ paymentsStatusStyle($payment->status) }}">{{ paymentsStatus($payment->status) }}</td>
+						<td>{{ paymentsType($payment->type) }}</td>						
 						<td class="width-12rem">
                         <div class="dropdown">
                             <button type="submit" class="btn btn-success btn-block btn-sm dropdown-toggle" id="dropdownMenuPay" data-toggle="dropdown" aria-expended="false" type="button">
                             <i class="fas fa-tools mx-1"></i>عملیات</i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuPay">
-                                <a href="#" class="dropdown-item"><span><i class="far fa-eye mx-1"></i></span>مشاهده </a>
-                                <a href="#" class="dropdown-item"><span><i class="fas fa-window-close mx-1"></i></span>باطل کردن</a>
-                                <a href="#" class="dropdown-item"><span><i class="fas fa-reply-all mx-1"></i></span>برگرداندن</a>
+                                <a href="{{ route('admin.market.payment.show', $payment->id) }}" class="dropdown-item"><span><i class="far fa-eye mx-1"></i></span>مشاهده </a>
+                                <a href="{{ route('admin.market.payment.cancel', $payment->id) }}" class="dropdown-item"><span><i class="fas fa-window-close mx-1"></i></span>باطل کردن</a>
+                                <a href="{{ route('admin.market.payment.return', $payment->id) }}" class="dropdown-item"><span><i class="fas fa-reply-all mx-1"></i></span>برگرداندن</a>
                             </div>
                         </div>							
 						</td>
 					</tr>                    
-                    <tr>
-						<th scope="row">1</th>
-						<td>95065485</td>
-						<td>پاسارگاد</td>
-						<td>محمد رحمتی</td>
-						<td>پرداخت شده</td>
-						<td>آفلاین</td>						
-						<td class="width-12rem">
-                        <div class="dropdown">
-                            <button type="submit" class="btn btn-success btn-block btn-sm dropdown-toggle" id="dropdownMenuPay" data-toggle="dropdown" aria-expended="false" type="button">
-                            <i class="fas fa-tools mx-1"></i>عملیات</i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuPay">
-                                <a href="#" class="dropdown-item"><span><i class="far fa-eye mx-1"></i></span>مشاهده </a>
-                                <a href="#" class="dropdown-item"><span><i class="fas fa-window-close mx-1"></i></span>باطل کردن</a>
-                                <a href="#" class="dropdown-item"><span><i class="fas fa-reply-all mx-1"></i></span>برگرداندن</a>
-                            </div>
-                        </div>							
-						</td>
-					</tr>                    
+					@endforeach
                 </tbody>
 			</table>
 		</div>

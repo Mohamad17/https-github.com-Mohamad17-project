@@ -18,58 +18,44 @@
         <div class="d-flex justify-content-between align-items-center my-3">
             <a href="{{ route('admin.user.role.index') }}" class="btn btn-info btn-sm">بازگشت</a>
         </div>
-        <form class="row" action="#" method="post">
+        <form class="row" action="{{ route('admin.user.role.store') }}" method="post">
+            @csrf
             <div class="col-md-5 mb-2">
                 <fieldset class="form-group">
                     <label for="name">عنوان نقش</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="عنوان نقش ...">
+                    <input class="form-control form-control-sm" name="name" value="{{ old('name') }}" type="text" placeholder="عنوان نقش ...">
                 </fieldset>
+                @error('name')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-5 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">توضیح نقش</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="توضیح نقش ...">
+                    <label for="description">توضیح نقش</label>
+                    <input class="form-control form-control-sm" name="description" value="{{ old('description') }}" type="text" placeholder="توضیح نقش ...">
                 </fieldset>
+                @error('description')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-2 mb-2 mt-32px">
                 <button class="btn btn-sm btn-primary" type="submit">ثبت</button>
             </div>
+            @if (!empty($permissions))
             <div class="col-12 border-top mt-2 py-3">
                 <div class="row justify-content-between">
+                    @foreach ($permissions as $key=>$permission)
                     <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check1" name="permission">
-                        <label for="check1" class="form-check-lable mr-3">نمایش دسته جدید</label>
+                        <input type="checkbox" class="form-check-input" value="{{ $permission->id }}" id="{{ $loop->iteration }}" name="permissions[]">
+                        <label for="{{ $loop->iteration }}" class="form-check-lable mr-3">{{ $permission->name }}</label>
+                        @error('permissions.'. $key)
+                        <div class="mt-2"><small class="text-danger">{{ $message }}</small></div>
+                        @enderror
                     </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check2" name="permission">
-                        <label for="check2" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check3" name="permission">
-                        <label for="check3" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check4" name="permission">
-                        <label for="check4" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check5" name="permission">
-                        <label for="check5" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check6" name="permission">
-                        <label for="check6" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check7" name="permission">
-                        <label for="check7" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="checkbox" class="form-check-input checked" id="check8" name="permission">
-                        <label for="check8" class="form-check-lable mr-3">نمایش دسته جدید</label>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+            @endif
         </form>
     </div>
 </div>

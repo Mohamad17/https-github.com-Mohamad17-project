@@ -12,7 +12,7 @@
             <div class="row flex-row-reverse">
                 @include('admin.layouts.sidebar')
 
-                <div class="bodySection col-12 col-md-9 mt-5">
+                <div class="bodySection col-12 col-md-10 mt-5">
                     @yield('content')   
                 </div>
             </div>

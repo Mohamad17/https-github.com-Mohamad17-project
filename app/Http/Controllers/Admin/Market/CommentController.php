@@ -4,72 +4,85 @@ namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Content\CommentRequest;
+use App\Models\Content\Comment;
+
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('admin.market.comment.index');
+        $comments= Comment::where('commentable_type', 'App\Models\Market\Product')->orderBy('created_at', 'desc')->simplePaginate(15);
+        $unseens= Comment::where('commentable_type', 'App\Models\Market\Product')->where('seen', 0)->get();
+        foreach ($unseens as $unseen){
+            $unseen->update(['seen'=>1]);
+        }
+        return view('admin.market.comment.index', compact('comments'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function store(Request $request)
+    
+    
+    
+    
+    public function answer(CommentRequest $request, Comment $comment)
     {
-        //
+        if ($comment->parent == null) {
+            $inputs = $request->all();
+            $inputs['author_id'] = 1;
+            $inputs['parent_id'] = $comment->id;
+            $inputs['commentable_id'] = $comment->commentable_id;
+            $inputs['commentable_type'] = $comment->commentable_type;
+            $inputs['approved'] = 1;
+            $inputs['status'] = 1;
+            $comment = Comment::create($inputs);
+            return redirect()->route('admin.market.comment.index')->with('swal-success', '  پاسخ شما با موفقیت ثبت شد');
+        }
+        else{
+            return redirect()->route('admin.market.comment.index')->with('swal-error', 'خطا');
+            
+        }
     }
-
+    
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Comment $comment)
     {
-        return view('admin.market.comment.show');
+        return view('admin.market.comment.show', compact('comment'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    
+    
+    
+    public function status(Comment $comment)
     {
-        //
+        $comment->status = $comment->status == 0 ? 1 : 0;
+        $result = $comment->save();
+        if ($result) {
+            if ($comment->status == 0) {
+                return response()->json(['status' => true, 'checked' => false]);
+            } else {
+                return response()->json(['status' => true, 'checked' => true]);
+            }
+        } else {
+            return response()->json(['status' => false]);
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    
+    public function approve(Comment $comment)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $comment->approved = $comment->approved == 0 ? 1 : 0;
+        $result = $comment->save();
+        if ($result) {
+            if ($comment->approved == 0) {
+                return response()->json(['approved' => 0]);
+            } else {
+                return response()->json(['approved' => 1]);
+            }
+        } else {
+            return response()->json(['status' => false]);
+        }
     }
 }

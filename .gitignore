@@ -13,3 +13,4 @@ project.komodoproject
 /nbproject/
 /.autogit/
 readme.md
+/vendor/

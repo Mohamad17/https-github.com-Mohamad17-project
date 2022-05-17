@@ -13,9 +13,9 @@
 	</nav>
 	<div class="col-md-12 mt-4">
 		<div class="content">
-			<h4>تیکت ها</h4>
+			<h4>{{ $title }}</h4>
 			<div class="d-flex justify-content-between align-items-center my-3">
-				<a class="btn btn-info btn-sm disabled">ایجاد تیکت ها</a>
+				<a class="btn btn-info btn-sm disabled">ایجاد تیکت</a>
 				<input type="text" class="form-controll form-controll-sm form-text" name="search" placeholder="جستجو">
 			</div>
 			<div class="table-responsive">
@@ -28,22 +28,26 @@
 							<th scope="col">دسته بندی تیکت</th>
 							<th scope="col">اولویت تیکت</th>
 							<th scope="col">ارجاع شده از</th>
-							<th scope="col" class="max-width-9rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
+							<th scope="col">پاسخ به</th>
+							<th scope="col" class="max-width-16rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
 						</tr>
 					</thead>
 					<tbody>
+						@foreach ($tickets as $ticket)
 						<tr>
-							<th scope="row">1</th>
-							<td>علی رحمانی</td>
-							<td>عدم ثبت سفارش</td>
-							<td>گوشی همراه</td>
-							<td>معمولی</td>
-							<td>-</td>
-							<td class="width-9rem">
-                                <a href="{{ route('admin.tickets.show') }}" class="btn btn-info btn-sm"><i class="fa fa-eye mx-1"></i>مشاهده</a>
+							<th scope="row">{{ $loop->iteration }}</th>
+							<td>{{ $ticket->user->fullName }}</td>
+							<td>{{ $ticket->subject }}</td>
+							<td>{{ $ticket->category->name }}</td>
+							<td>{{ $ticket->priority->name }}</td>
+							<td>{{ $ticket->admin->user->fullName }}</td>
+							<td>{{ $ticket->parent->subject?? '-' }}</td>
+							<td class="width-16rem">
+                                <a href="{{ route('admin.ticket.change', $ticket->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-exchange-alt mx-1"></i>{{ $ticket->status==0? "بستن تیکت": "باز کردن تیکت" }}</a>
+                                <a href="{{ route('admin.ticket.show', $ticket->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye mx-1"></i>مشاهده</a>
                             </td>
 						</tr>
-						
+						@endforeach
 					</tbody>
 				</table>
 			</div>

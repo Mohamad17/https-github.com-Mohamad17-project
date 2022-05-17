@@ -26,36 +26,26 @@
 							<th scope="col">نام محصول</th>
 							<th scope="col">تصویر</th>
 							<th scope="col">موجودی</th>
-							<th scope="col">ورودی انبار</th>
-							<th scope="col">خروجی انبار</th>
+							<th scope="col">فروخته شده</th>
+							<th scope="col">رزرو شده</th>
 							<th scope="col" class="max-width-22rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
 						</tr>
 					</thead>
 					<tbody>
+						@foreach($products as $product)
 						<tr>
-							<th scope="row">1</th>
-							<td>موبایل موتورولا G8</td>
-							<td><img src="asset/images/avatar-2.jpg" alt="product"></td>
-							<td>16</td>
-							<td>36</td>
-							<td>20</td>
+							<th scope="row">{{ $loop->iteration }}</th>
+							<td>{{ $product->name }}</td>
+							<td><img src="{{ asset($product->image['indexArray'][$product->image['currentImage']]) }}" alt="product" class="img-fluid" width="50"></td>
+							<td>{{ $product->marketable_number }}</td>
+							<td>{{ $product->sold_number }}</td>
+							<td>{{ $product->frozen_number }}</td>
 							<td class="width-22rem">
-                                <a href="{{ route('admin.market.store.add-to-store') }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>افزایش موجودی</a>
-                                <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit mx-1"></i>اصلاح موجودی</a>
+                                <a href="{{ route('admin.market.store.add-to-store', $product->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>افزایش موجودی</a>
+                                <a href="{{ route('admin.market.store.edit', $product->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit mx-1"></i>اصلاح موجودی</a>
                             </td>
 						</tr>
-						<tr>
-							<th scope="row">1</th>
-							<td>موبایل موتورولا G8</td>
-							<td><img src="asset/images/avatar-2.jpg" alt="product"></td>
-							<td>16</td>
-							<td>36</td>
-							<td>20</td>
-							<td class="width-22rem">
-                                <a href="{{ route('admin.market.store.add-to-store') }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>افزایش موجودی</a>
-                                <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit mx-1"></i>اصلاح موجودی</a>
-                            </td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

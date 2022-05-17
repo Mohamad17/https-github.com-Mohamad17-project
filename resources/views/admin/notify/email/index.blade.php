@@ -24,32 +24,110 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">عنوان اطلاعیه</th>
+                        <th scope="col">خلاصه متن</th>
                         <th scope="col">تاریخ ارسال</th>
-                        <th scope="col" class="max-width-16rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
+                        <th scope="col">وضعیت</th>
+                        <th scope="col" class="max-width-22rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>فروش ویژه جمعه سیاه</td>
-                        <td>24 آذر 1400</td>
-                        <td class="width-16rem">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>فروش ویژه نوروز</td>
-                        <td>24 بهمن 1400</td>
-                        <td class="width-16rem">
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
-                        </td>
-                    </tr>
+                    @foreach ($emails as $key => $email)
+                        <tr>
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>{{ $email->subject }}</td>
+                            <td>{{ Str::limit($email->body, 40) }}</td>
+                            <td>{{ date_to_persian($email->published_at, 'Y-m-d H:i:s') }}</td>
+                            <td>
+                                <label><input id="{{ $email->id }}"
+                                        data-url="{{ route('admin.notify.email.status', [$email->id]) }}"
+                                        onchange="changeStatus({{ $email->id }})" type="checkbox"
+                                        @if ($email->status == 1) checked @endif></label>
+                            </td>
+                            <td class="width-22rem">
+                                <a href="{{ route('admin.notify.email-files.index', [$email->id]) }}"
+                                    class="btn btn-warning btn-sm"><i class="fas fa-paperclip mx-1"></i>فایب های پیوستی</a>
+                                <a href="{{ route('admin.notify.email.edit', [$email->id]) }}"
+                                    class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
+                                <form class="d-inline"
+                                    action="{{ route('admin.notify.email.destroy', [$email->id]) }}" method="POST">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button type="submit" class="btn btn-danger btn-sm delete"><i
+                                            class="fa fa-trash mx-1"></i>حذف</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('script')
+    <script>
+        function changeStatus(id) {
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var exStatus = !element.prop('checked');
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    if (response.status) {
+                        if (response.checked) {
+                            element.prop('checked', true);
+                            successAlert('وضعیت با موفقیت فعال شد');
+                        } else {
+                            element.prop('checked', false);
+                            successAlert('وضعیت با موفقیت غیر فعال شد');
+                        }
+                    } else {
+                        element.prop('checked', exStatus);
+                        errorAlert('تغییر وضعیت انجام نشد');
+                    }
+                },
+                error: function() {
+                    element.prop('checked', exStatus);
+                    errorAlert('تغییر وضعیت انجام نشد');
+                }
+            });
+
+            function successAlert(message) {
+                var toastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(toastTag);
+                $('.toast').toast('show').delay(5500).queue(function() {
+                    $(this).remove();
+                });
+            }
+
+            function errorAlert(message) {
+                var toastTag = '<section class="toast" data-delay="5000">\n' +
+                    '<section class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' +
+                    '</button>\n' +
+                    '</section>\n' +
+                    '</section>';
+                $('.toast-wrapper').append(toastTag);
+                $('.toast').toast('show').delay(5500).queue(function() {
+                    $(this).remove();
+                });
+            }
+        }
+    </script>
+    @include('admin.alerts.sweetalert.delete-confirm', [
+        'className' => 'delete',
+    ])
 @endsection

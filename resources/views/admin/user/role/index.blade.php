@@ -29,22 +29,29 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($roles as $role)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>پشتیبان فروش</td>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $role->name }}</td>
                         <td>
+                            @if (!empty($role->permissions->toArray()))
                             <ol>
-                                <li>مشاهده سفارشات</li>
-                                <li>مشاهده پرداخت ها</li>
-                                <li>مشاهده تخفیف ها</li>
+                                @foreach ($role->permissions as $permission)
+                                <li>{{ $permission->name }}</li>
+                                @endforeach
                             </ol>
+                            @else
+                            <span class="text-danger">سطح دسترسی برای این نقش ثبت نشده است</span>
+                            @endif
+                            
                         </td>
                         <td class="width-22rem">
-                            <a href="#" class="btn btn-success btn-sm"><i class="fa fa-user-graduate mx-1"></i>دسترسی ها</a>
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
+                            <a href="{{ route('admin.user.role.edit-permissions', $role->id) }}" class="btn btn-success btn-sm"><i class="fa fa-user-graduate mx-1"></i>دسترسی ها</a>
+                            <a href="{{ route('admin.user.role.edit', $role->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

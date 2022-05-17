@@ -31,32 +31,32 @@
 					</tr>
 				</thead>
 				<tbody>
+					@foreach ($amazinfSales as $amazing)
 					<tr>
-						<th scope="row">1</th>
-						<td>گوشی نوکیا x60</td>
-						<td>25%</td>
-						<td>29 اردیبهشت 1400</td>
-						<td>31 خرداد 1400</td>						
+						<th scope="row">{{ $loop->iteration }}</th>
+						<td>{{ $amazing->product->name }}</td>
+						<td>{{ $amazing->percentage }}</td>
+						<td>{{ \Morilog\Jalali\Jalalian::forge($amazing->start_date)->format('Y-m-d H:i:s') }}</td>
+						<td>{{ \Morilog\Jalali\Jalalian::forge($amazing->end_date)->format('Y-m-d H:i:s') }}</td>
 						<td class="width-16rem">
-							<a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
-							<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
+							<a href="{{ route('admin.market.discount.amazingSale.edit', $amazing->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
+							<form class="d-inline" action="{{ route('admin.market.discount.amazingSale.delete', [$amazing->id]) }}"
+								method="POST">
+								@csrf
+								{{ method_field('delete') }}
+								<button type="submit" class="btn btn-danger btn-sm delete"><i
+										class="fa fa-trash mx-1"></i>حذف</button>
+							</form>
 						</td>
 					</tr>
-                    <tr>
-						<th scope="row">2</th>
-						<td>گوشی نوکیا x60</td>
-						<td>25%</td>
-						<td>29 اردیبهشت 1400</td>
-						<td>31 خرداد 1400</td>						
-						<td class="width-16rem">
-							<a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
-							<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
-						</td>
-					</tr>                    
+					@endforeach
                 </tbody>
 			</table>
 		</div>
 	</div>
 </div>
 
+@endsection
+@section('script')
+@include('admin.alerts.sweetalert.delete-confirm',['className'=>'delete'])
 @endsection

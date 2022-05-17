@@ -15,26 +15,32 @@
 			<h4>تنظیمات</h4>
 			<div class="d-flex justify-content-between align-items-center my-3">
 				<a class="btn btn-info btn-sm disabled">ایجاد تنظیمات</a>
-				<input type="text" class="form-controll form-controll-sm form-text" name="search" placeholder="جستجو">
 			</div>
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">نام سایت</th>
-							<th scope="col">هنوان سایت</th>
+							<th scope="col">عنوان سایت</th>
+							<th scope="col">توضیحات سایت</th>
+							<th scope="col">کلمات کلیدی</th>
+							<th scope="col">لوگوی سایت</th>
+							<th scope="col">آیکون سایت</th>
 							<th scope="col" class="max-width-16rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<th scope="row">1</th>
-							<td>فروشگاه من</td>
-							<td>فروشگاه من</td>
+							<td>{{ $setting->title }}</td>
+							<td>{{ $setting->description }}</td>
+							<td>{{ $setting->keywords }}</td>
+							<td><img src="{{ asset($setting->icon) }}"
+								alt="icon" class="img-fluid" width="50"></td>
+							<td><img src="{{ asset($setting->logo) }}"
+								alt="logo" class="img-fluid" width="50"></td>
 							<td class="width-16rem">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
-                                <button disabled type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash mx-1"></i>حذف</button>
+                                <a href="{{ route('admin.setting.edit', $setting->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
                             </td>
 						</tr>
 					</tbody>

@@ -19,14 +19,14 @@ toggleOn.addEventListener('click',function(){
     toggleOn.classList.remove('d-md-inline','d-inline');
     toggleOff.classList.remove('d-md-none','d-none');
     sideBar.classList.add('hideSide');
-    bodySection.classList.remove('col-md-9');
+    bodySection.classList.remove('col-md-10');
 });
 
 toggleOff.addEventListener('click',function(){
     toggleOn.classList.add('d-md-inline','d-inline');
     toggleOff.classList.add('d-md-none','d-none');
     sideBar.classList.remove('hideSide','d-none');
-    bodySection.classList.add('col-md-9');
+    bodySection.classList.add('col-md-10');
 });
 
 clips.addEventListener('click', function(){

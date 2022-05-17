@@ -1,6 +1,6 @@
 <header class="header fixed-top shadow">
     <div class="row">
-        <div class="col-md-3 d-flex justify-content-around flex-md-row-reverse bgSide">
+        <div class="col-md-2 d-flex justify-content-around flex-md-row-reverse bgSide">
             <div>
                 <span class="d-md-none toggle-off pointer"><i class="fa fa-toggle-off text-light"></i></span>
                 <span class="d-none d-md-inline toggle-on pointer"><i class="fa fa-toggle-on text-light"></i></span>
@@ -8,7 +8,7 @@
             <div><img src="{{asset('admin-asset/images/logo.png')}}" alt="logo"></div>
             <div class="d-md-none text-light pointer clips"><i class="fa fa-ellipsis-h"></i></div>
         </div>
-        <div class="col-md-9 d-md-flex justify-content-between d-none bg-white bodyHeader">
+        <div class="col-md-10 d-md-flex justify-content-between d-none bg-white bodyHeader">
             <div class="rightSection d-none d-md-inline mr-1 mr-md-4">
                 <div class="ml-4 d-inline"><i class="fa fa-search d-none d-md-inline pointer searchToggle"></i></div>
                 <span class="searchBox px-2 py-2 ml-2 d-none">

@@ -18,24 +18,43 @@
 		<div class="d-flex justify-content-between align-items-center my-3">
 			<a href="{{ route('admin.market.delivery.index') }}" class="btn btn-info btn-sm">بازگشت</a>
 		</div>
-		<form class="row" action="#" method="post">
+		<form class="row" action="{{ route('admin.market.delivery.store') }}" method="post">
+			@csrf
 			<div class="col-md-6 mb-2">
 				<fieldset class="form-group">
 					<label for="name">نام روش ارسال</label>
-					<input class="form-control form-control-sm" name="name" type="text" placeholder="نام ...">
+					<input class="form-control form-control-sm" value="{{ old('name') }}" name="name" type="text" placeholder="نام ...">
 				</fieldset>
+				@error('name')
+				<small class="text-danger">{{ $message }}</small>
+				@enderror
 			</div>
 			<div class="col-md-6 mb-2">
 				<fieldset class="form-group">
-					<label for="name">هزینه ارسال </label>
-					<input class="form-control form-control-sm" name="price" type="text" placeholder="هزینه ارسال ...">
+					<label for="amount">هزینه ارسال </label>
+					<input class="form-control form-control-sm" value="{{ old('amount') }}" name="amount" type="text" placeholder="هزینه ارسال ...">
 				</fieldset>
+				@error('amount')
+				<small class="text-danger">{{ $message }}</small>
+				@enderror
 			</div>
 			<div class="col-md-6 mb-2">
 				<fieldset class="form-group">
-					<label for="name">زمان تحویل </label>
-					<input class="form-control form-control-sm" name="delivery_time" type="text" placeholder="زمان تحویل ...">
+					<label for="delivery_time">زمان تحویل </label>
+					<input class="form-control form-control-sm" value="{{ old('delivery_time') }}" name="delivery_time" type="text" placeholder="زمان تحویل ...">
 				</fieldset>
+				@error('delivery_time')
+				<small class="text-danger">{{ $message }}</small>
+				@enderror
+			</div>
+			<div class="col-md-6 mb-2">
+				<fieldset class="form-group">
+					<label for="delivery_time_unit">واحد زمان تحویل </label>
+					<input class="form-control form-control-sm" value="{{ old('delivery_time_unit') }}" name="delivery_time_unit" type="text" placeholder="واحد زمان تحویل ...">
+				</fieldset>
+				@error('delivery_time_unit')
+				<small class="text-danger">{{ $message }}</small>
+				@enderror
 			</div>
 			<div class="col-md-12 mb-2">
 				<button class="btn btn-sm btn-primary" type="submit">ثبت</button>

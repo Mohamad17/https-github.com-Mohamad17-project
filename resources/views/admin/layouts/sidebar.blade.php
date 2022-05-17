@@ -1,4 +1,4 @@
-<div class="sidebar pt-4 d-none d-md-inline col-md-3 bgSide">
+<div class="sidebar pt-4 d-none d-md-inline col-md-2 bgSide">
 	<div class="wrapperSidebar">
 		<a href="{{route('admin.home')}}" class="sidebarLink">
 			<i class="fa fa-home"></i>
@@ -49,9 +49,9 @@
 			</div>
 			<div class="sMenu toggleMenu">
 				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">تمام پرداخت ها</a>
-				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">پرداخت های آنلاین</a>
-				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">پرداخت های آفلاین</a>
-				<a href="{{ route('admin.market.payment.index') }}" class="sidebarLinkToggle">پرداخت در محل</a>
+				<a href="{{ route('admin.market.payment.online') }}" class="sidebarLinkToggle">پرداخت های آنلاین</a>
+				<a href="{{ route('admin.market.payment.offline') }}" class="sidebarLinkToggle">پرداخت های آفلاین</a>
+				<a href="{{ route('admin.market.payment.cash') }}" class="sidebarLinkToggle">پرداخت در محل</a>
 			</div>
 		</div>
 		<div class="sideMenuToggle">
@@ -63,7 +63,7 @@
 				<i class="angel fa fa-angle-left"></i>
 			</div>
 			<div class="sMenu toggleMenu">
-				<a href="{{ route('admin.market.discount.coupon')}}" class="sidebarLinkToggle">کپن تخفیف</a>
+				<a href="{{ route('admin.market.discount.copan')}}" class="sidebarLinkToggle">کپن تخفیف</a>
 				<a href="{{ route('admin.market.discount.common')}}" class="sidebarLinkToggle">تخفیف عمومی</a>
 				<a href="{{ route('admin.market.discount.amazingSale')}}" class="sidebarLinkToggle">فروش شگفت انگیز</a>
 			</div>
@@ -111,15 +111,31 @@
 			<span>سطوح دسترسی</span>
 		</a>
 		<div class="divider">تیکت ها</div>
-		<a href="{{ route('admin.tickets.new-ticket') }}" class="sidebarLink">
+		<a href="{{ route('admin.ticket.category.index') }}" class="sidebarLink">
+			<i class="fas fa-bars"></i>
+			<span>دسته بندی تیکت ها</span>
+		</a>
+		<a href="{{ route('admin.ticket.priority.index') }}" class="sidebarLink">
+			<i class="fas fa-bars"></i>
+			<span>اولویت تیکت ها</span>
+		</a>
+		<a href="{{ route('admin.ticket.admin.index') }}" class="sidebarLink">
+			<i class="fas fa-bars"></i>
+			<span>ادمین تیکت ها</span>
+		</a>
+		<a href="{{ route('admin.ticket.index') }}" class="sidebarLink">
+			<i class="fas fa-bars"></i>
+			<span>همه تیکت ها</span>
+		</a>
+		<a href="{{ route('admin.ticket.new-ticket') }}" class="sidebarLink">
 			<i class="fas fa-bars"></i>
 			<span>تیکت های جدید</span>
 		</a>
-		<a href="{{ route('admin.tickets.open-ticket') }}" class="sidebarLink">
+		<a href="{{ route('admin.ticket.open-ticket') }}" class="sidebarLink">
 			<i class="fas fa-bars"></i>
 			<span>تیکت های باز</span>
 		</a>
-		<a href="{{ route('admin.tickets.close-ticket') }}" class="sidebarLink">
+		<a href="{{ route('admin.ticket.close-ticket') }}" class="sidebarLink">
 			<i class="fas fa-bars"></i>
 			<span>تیکت های بسته</span>
 		</a>

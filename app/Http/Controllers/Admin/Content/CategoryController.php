@@ -15,8 +15,7 @@ class CategoryController extends Controller
         $postCategories = PostCategory::orderBy('created_at', 'desc')->simplePaginate(15);
         return view('admin.content.category.index', compact('postCategories'));
     }
-
-  
+     
     public function create()
     {
         return view('admin.content.category.create');
@@ -28,12 +27,13 @@ class CategoryController extends Controller
         if($request->hasFile('image')){
             $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'post-category');
             $image= $imageService->createIndexAndSave($request->file('image'));
+            if($image === false)
+            {
+            return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
+            }   
             $inputs['image'] = $image;
         }
-        if($image === false)
-        {
-            return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود تصویر با خطا مواجه شد');
-        }
+        
         
         PostCategory::create($inputs);
         return redirect()->route('admin.content.category.index')->with('swal-success','دسته بندی شما با موفقیت اضافه شد');

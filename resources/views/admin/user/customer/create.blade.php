@@ -18,65 +18,84 @@
         <div class="d-flex justify-content-between align-items-center my-3">
             <a href="{{ route('admin.user.customer.index') }}" class="btn btn-info btn-sm">بازگشت</a>
         </div>
-        <form class="row" action="#" method="post">
+        <form class="row" action="{{ route('admin.user.customer.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">نام</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="نام ...">
+                    <label for="first_name">نام</label>
+                    <input class="form-control form-control-sm" value="{{ old('first_name') }}" name="first_name" type="text" placeholder="نام ...">
                 </fieldset>
+                @error('first_name')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">نام خانوادگی</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="نام خانوادگی ...">
+                    <label for="last_name">نام خانوادگی</label>
+                    <input class="form-control form-control-sm" value="{{ old('last_name') }}" name="last_name" type="text" placeholder="نام خانوادگی ...">
                 </fieldset>
+                @error('last_name')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">ایمیل</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="ایمیل ...">
+                    <label for="email">ایمیل</label>
+                    <input class="form-control form-control-sm" value="{{ old('email') }}" name="email" type="text" placeholder="ایمیل ...">
                 </fieldset>
+                @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">شماره همراه</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="شماره همراه ...">
+                    <label for="mobile">شماره همراه</label>
+                    <input class="form-control form-control-sm" value="{{ old('mobile') }}" name="mobile" type="text" placeholder="شماره همراه ...">
                 </fieldset>
+                @error('mobile')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">کلمه عبور</label>
-                    <input class="form-control form-control-sm" name="name" type="password" placeholder="کلمه عبور ...">
+                    <label for="password">کلمه عبور</label>
+                    <input class="form-control form-control-sm" value="{{ old('password') }}" name="password" type="password" placeholder="کلمه عبور ...">
                 </fieldset>
+                @error('password')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">تکرار کلمه عبور</label>
-                    <input class="form-control form-control-sm" name="name" type="password" placeholder="تکرار کلمه عبور ...">
+                    <label for="password_confirmation">تکرار کلمه عبور</label>
+                    <input class="form-control form-control-sm" name="password_confirmation" type="password" placeholder="تکرار کلمه عبور ...">
                 </fieldset>
+                @error('password_confirmation')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">کد ملی</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="کد ملی ...">
-                </fieldset>
-            </div>
-            <div class="col-md-6 mb-2">
-                <fieldset class="form-group">
-                    <label for="name">وضعیت کاربر</label>
-                    <select class="form-control form-control-sm" name="status">
-                        <option value="0">غیر فعال</option>
-                        <option value="1">فعال</option>
+                    <label for="activation">وضعیت فعال بودن ادمین</label>
+                    <select class="form-control form-control-sm" name="activation">
+                        <option value="0" @if (old('activation')==0) selected @endif>غیر فعال</option>
+                        <option value="1" @if (old('activation')==1) selected @endif>فعال</option>
                     </select>
                 </fieldset>
+                @error('activation')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">تصویر</label>
-                    <input type="file" name="logo" class="form-control form-control-sm">
+                    <label for="profile_photo_path">تصویر</label>
+                    <input type="file" name="profile_photo_path" class="form-control form-control-sm">
                 </fieldset>
+                @error('profile_photo_path')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
-            <div class="col-md-6 mb-2">
+            <div class="col-12 mb-2">
                 <button class="btn btn-sm btn-primary" type="submit">ثبت</button>
             </div>
         </form>

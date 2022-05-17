@@ -1,6 +1,8 @@
 @extends('admin.layouts.master')
 @section('head-tag')
 <title>ایجاد اطلاعیه پیامکی </title>
+<link rel="stylesheet" href="{{ asset('admin-asset/jalalidatepicker/persian-datepicker.min.css') }}">
+
 @endsection
 
 @section('content')
@@ -18,24 +20,47 @@
         <div class="d-flex justify-content-between align-items-center my-3">
             <a href="{{ route('admin.notify.sms.index') }}" class="btn btn-info btn-sm">بازگشت</a>
         </div>
-        <form class="row" action="#" method="post">
+        <form class="row" action="{{ route('admin.notify.sms.store') }}" method="post">
+            @csrf
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">عنوان ایمیل</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="عنوان ایمیل ...">
+                    <label for="title">عنوان پیامک</label>
+                    <input class="form-control form-control-sm" value="{{ old('title') }}" name="title" type="text" placeholder="عنوان پیامک ...">
                 </fieldset>
+                @error('title')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <fieldset class="form-group">
-                    <label for="name">تاریخ ارسال</label>
-                    <input class="form-control form-control-sm" name="name" type="text" placeholder="تاریخ ارسال ...">
+                    <label for="published_at">تاریخ ارسال</label>
+                    <input class="form-control form-control-sm d-none" name="published_at" id="published_at" type="text" placeholder="تاریخ انتشار ...">
+                    <input class="form-control form-control-sm" id="published_at_view" type="text" placeholder="تاریخ انتشار ...">
                 </fieldset>
+                @error('published_at')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-md-6 mb-2">
+                <fieldset class="form-group">
+                    <label for="status">وضعیت</label>
+                    <select class="form-control form-control-sm" name="status" id="status">
+                        <option value="0" @if (old('status')==0) selected @endif>غیر فعال</option>
+                        <option value="1" @if (old('status')==1) selected @endif>فعال</option>
+                    </select>
+                </fieldset>
+                @error('status')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-12 mb-2">
                 <fieldset class="form-group">
                     <label for="body">متن پیامک</label>
-                    <textarea class="form-control form-control-sm" id="body" name="body" cols="6"></textarea>
+                    <textarea class="form-control form-control-sm" id="body" name="body" cols="6"> {{ old('body') }}</textarea>
                 </fieldset>
+                @error('body')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col-md-6 mb-2">
                 <button class="btn btn-sm btn-primary" type="submit">ثبت</button>
@@ -43,4 +68,23 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="application/javascript" src="{{ asset('admin-asset/jalalidatepicker/persian-date.min.js') }}"></script>
+<script type="application/javascript" src="{{ asset('admin-asset/jalalidatepicker/persian-datepicker.min.js') }}"></script>
+<script>
+	$(document).ready(function(){
+		$("#published_at_view").persianDatepicker({
+			 viewMode: 'YYYY-MM-DD',
+			 altField: '#published_at',
+             timePicker: {
+                    enabled: true,
+                    meridiem: {
+                        enabled: true
+                    }
+            }
+		});
+	})
+</script>
 @endsection

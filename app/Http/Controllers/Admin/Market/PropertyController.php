@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Market;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Market\ProductCategory;
+use App\Models\Market\CategoryAttribute;
+use App\Http\Requests\Admin\Market\CategoryAttributeRequest;
 
 class PropertyController extends Controller
 {
@@ -14,7 +17,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return view('admin.market.property.index');
+        $attributes= CategoryAttribute::orderBy('created_at', 'desc')->simplePaginate(15);;
+        return view('admin.market.property.index', compact('attributes'));
     }
 
     /**
@@ -24,7 +28,8 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('admin.market.property.create');
+        $categories= ProductCategory::all();
+        return view('admin.market.property.create', compact('categories'));
     }
 
     /**
@@ -33,31 +38,17 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryAttributeRequest $request)
     {
-        //
+        $inputs= $request->all();
+        CategoryAttribute::create($inputs);
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'فرم محصول شما با موفقیت اضافه شد');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(CategoryAttribute $property)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $categories= ProductCategory::all();
+        return view('admin.market.property.edit', compact('property', 'categories'));
     }
 
     /**
@@ -67,9 +58,11 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryAttributeRequest $request, CategoryAttribute $property)
     {
-        //
+        $inputs= $request->all();
+        $property->update($inputs);
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'فرم محصول شما با موفقیت ویرایش شد');
     }
 
     /**
@@ -78,8 +71,9 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoryAttribute $property)
     {
-        //
+        $property->delete();
+        return back()->with('swal-success', 'فرم محصول مورد نظر با موفقیت حذف شد');
     }
 }
