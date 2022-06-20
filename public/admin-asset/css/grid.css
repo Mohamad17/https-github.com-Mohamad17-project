@@ -1,5 +1,5 @@
 .header {
-	line-height: 4rem;
+	height: 6rem;
 }
 
 .bgSide {
@@ -67,8 +67,8 @@
 	position: absolute;
 	left: 15rem;
 	top: 2.4rem;
-	height: calc(100vh - 3rem);
-	width: 15rem;
+	height: auto;
+	width: 20rem;
 	background-color: #edf1f3;
 	padding: .8rem;
 	border-radius: .2rem;

@@ -65,10 +65,10 @@
                 </div>
                 <div class="col-md-6 mb-2">
                     <fieldset class="form-group">
-                        <label for="logo">تصویر</label>
-                        <input class="form-control form-control-sm" name="logo" id="logo" type="file">
+                        <label for="image">تصویر</label>
+                        <input class="form-control form-control-sm" name="image" id="image" type="file">
                     </fieldset>
-                    @error('logo')
+                    @error('image')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                     @php

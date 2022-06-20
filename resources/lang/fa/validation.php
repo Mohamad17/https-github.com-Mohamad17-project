@@ -196,5 +196,7 @@ return array(
         'minimal_order_amount'=> 'حداقل مبلغ خرید',
         'type'=> 'نوع',
         'user_id'=> 'کاربر',
+        'confirm-code'=> 'کد تأیید',
+        'color'=> 'رنگ',
     ),
 );

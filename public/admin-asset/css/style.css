@@ -47,6 +47,9 @@ li {
 .max-width-22rem {
     max-width: 22rem;
 }
+.max-width-44rem {
+    max-width: 44rem;
+}
 
 .max-width-16rem {
     max-width: 16rem;
@@ -66,6 +69,9 @@ li {
 
 .width-22rem {
     width: 22rem;
+}
+.width-44rem {
+    width: 44rem;
 }
 
 .width-16rem {

@@ -33,6 +33,16 @@
                 </div>
                 <div class="col-md-6 mb-2">
                     <fieldset class="form-group">
+                        <label for="color">رنگ</label>
+                        <input class="form-control form-control-sm" name="color" value="{{ old('color') }}" type="color"
+                            placeholder="رنگ ...">
+                    </fieldset>
+                    @error('color')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-2">
+                    <fieldset class="form-group">
                         <label for="price_increase">میزان افزایش قیمت</label>
                         <input class="form-control form-control-sm" name="price_increase" value="{{ old('price_increase') }}" type="text"
                             placeholder="میزان افزایش قیمت ...">

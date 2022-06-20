@@ -25,6 +25,7 @@
                             <th scope="col">#</th>
                             <th>نام محصول</th>
                             <th>نام رنگ</th>
+                            <th>رنگ</th>
                             <th>میزان افزایش قیمت</th>
                             <th scope="col" class="max-width-16rem"><i class="fa fa-cogs mx-1"></i>تنظیمات</th>
                         </tr>
@@ -35,6 +36,7 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $color->color_name }}</td>
+                                <td><div class="w-8 h-8 rounded-full" style="background-color: {{ $color->color }}"></div></td>
                                 <td>{{ $color->price_increase }} تومان</td>
                                 <td class="width-16rem">
                                     <a href="{{ route('admin.market.product.color.edit',[$color->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>

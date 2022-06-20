@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('head-tag')
-    <title>سفارشات</title>
+    <title>سفارشات {{ $title }}</title>
 @endsection
 
 @section('content')
@@ -61,13 +61,13 @@
                                             <i class="fas fa-tools mx-1"></i>عملیات</i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownLinkMenu">
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.show', $order->id) }}" class="dropdown-item"><span><i
                                                         class="far fa-eye mx-1"></i></span>مشاهده فاکتور</a>
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.orderStatus', $order->id) }}" class="dropdown-item"><span><i
                                                         class="fa fa-tasks mx-1"></i></span>تغییر وضعیت سفارش</a>
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.sendStatus', $order->id) }}" class="dropdown-item"><span><i
                                                         class="fa fa-truck mx-1"></i></span>تغییر وضعیت ارسال</a>
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.cancelOrder', $order->id) }}" class="dropdown-item"><span><i
                                                         class="fas fa-window-close mx-1"></i></span>باطل کردن سفارش</a>
                                         </div>
                                     </div>

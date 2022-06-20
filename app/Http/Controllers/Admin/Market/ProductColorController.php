@@ -22,6 +22,7 @@ class ProductColorController extends Controller
     public function store(Request $request, Product $product)
     {
         $request->validate([
+            'color' => 'required|max:50',
             'color_name' => 'required|max:50|min:2|regex:/^[ا-یa-zA-Z0-9\-ء-ي ]+$/u',
             'price_increase' => 'required|numeric',
             'status'=> 'required|numeric|in:0,1',
@@ -48,6 +49,7 @@ class ProductColorController extends Controller
     public function update(Request $request, ProductColor $color)
     {
         $request->validate([
+            'color' => 'required|max:50',
             'color_name' => 'required|max:50|min:2|regex:/^[ا-یa-zA-Z0-9\-ء-ي ]+$/u',
             'price_increase' => 'required|numeric',
             'status'=> 'required|numeric|in:0,1',

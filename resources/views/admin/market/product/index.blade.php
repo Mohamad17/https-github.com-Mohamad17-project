@@ -37,7 +37,7 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $product->name }}</td>
                                 <td><img src="{{ asset($product->image['indexArray'][$product->image['currentImage']]) }}"
-                                        alt="brand" class="img-fluid" width="50"></td>
+                                        alt="{{ $product->name }}" class="img-fluid" width="50"></td>
                                 <td>{{ $product->price }} تومان</td>
                                 <td>{{ $product->weight }}</td>
                                 <td>{{ $product->category->name }}</td>
@@ -52,6 +52,8 @@
                                                         class="far fa-images mx-1"></i></span> گالری</a>
                                             <a href="{{ route('admin.market.product.color.index', $product->id) }}" class="dropdown-item"><span><i
                                                         class="fas fa-list-ul mx-1"></i></span> رنگ کالا</a>
+                                            <a href="{{ route('admin.market.product.guarantee.index', $product->id) }}" class="dropdown-item"><span><i
+                                                        class="fas fa-list-ul mx-1"></i></span> گارانتی کالا</a>
                                             <a href="{{ route('admin.market.product.edit', $product->id) }}" class="dropdown-item"><span><i class="fas fa-edit mx-1"></i></span> ویرایش</a>
                                             <form class="dropdown-item" action="{{ route('admin.market.product.destroy', [$product->id]) }}"
                                                 method="POST">

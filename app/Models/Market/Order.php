@@ -4,6 +4,7 @@ namespace App\Models\Market;
 
 use App\Models\Payment\Payment;
 use App\Models\User;
+use App\Models\User\Address;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,5 +47,21 @@ class Order extends Model
 
     public function delivery(){
         return $this->belongsTo(Delivery::class);
+    }
+
+    public function address(){
+        return $this->belongsTo(Address::class);
+    }
+
+    public function copan(){
+        return $this->belongsTo(Copan::class);
+    }
+
+    public function commonDiscount(){
+        return $this->belongsTo(CommonDiscount::class);
+    }
+
+    public function items(){
+        return $this->hasMany(OrderItem::class);
     }
 }

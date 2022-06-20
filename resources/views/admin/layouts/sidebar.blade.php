@@ -97,6 +97,10 @@
 			<i class="fas fa-bars"></i>
 			<span>پیج ساز</span>
 		</a>
+		<a href="{{ route('admin.content.banner.index') }}" class="sidebarLink">
+			<i class="fas fa-bars"></i>
+			<span>بنر ها</span>
+		</a>
 		<div class="divider">بخش کاربران</div>
 		<a href="{{ route('admin.user.admin-user.index') }}" class="sidebarLink">
 			<i class="fas fa-bars"></i>

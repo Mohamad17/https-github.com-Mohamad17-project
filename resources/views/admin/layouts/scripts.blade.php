@@ -4,3 +4,15 @@
 <script src="{{asset('admin-asset/sweetalert/sweetalert2.min.js')}}"></script>
 <script src="{{asset('admin-asset/select2/js/select2.min.js')}}"></script>
 <script src="{{asset('admin-asset/js/grid.js')}}"></script>
+<script>
+    $('#bell').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: "{{route('notification.read-all')}}",
+            data: {_token: "{{ csrf_token() }}"},
+            success: function(response) {
+                $('#bell').children('.badge').empty()
+            }
+        })
+    })
+</script>

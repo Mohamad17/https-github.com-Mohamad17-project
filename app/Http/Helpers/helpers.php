@@ -2,11 +2,13 @@
 
 use Morilog\Jalali\Jalalian;
 
-function date_to_persian($date, $format= "%B %d، %Y"){
+function date_to_persian($date, $format = "%d %B، %Y")
+{
     return Jalalian::forge($date)->format($format);
 }
 
-function paymentsType($type){
+function paymentsType($type)
+{
     switch ($type) {
         case 0:
             return "آنلاین";
@@ -20,7 +22,8 @@ function paymentsType($type){
     }
 }
 
-function paymentsStatus($status){
+function paymentsStatus($status)
+{
     switch ($status) {
         case 0:
             return "پرداخت نشده";
@@ -37,7 +40,8 @@ function paymentsStatus($status){
     }
 }
 
-function paymentsStatusStyle($status){
+function paymentsStatusStyle($status)
+{
     switch ($status) {
         case 0:
             return "text-warning";
@@ -54,7 +58,8 @@ function paymentsStatusStyle($status){
     }
 }
 
-function copanType($type){
+function copanType($type)
+{
     switch ($type) {
         case 0:
             return "عمومی";
@@ -65,7 +70,8 @@ function copanType($type){
     }
 }
 
-function copanAmountType($type){
+function copanAmountType($type)
+{
     switch ($type) {
         case 0:
             return "درصدی";
@@ -76,7 +82,8 @@ function copanAmountType($type){
     }
 }
 
-function orderStatus($status){
+function orderStatus($status)
+{
     switch ($status) {
         case 0:
             return "بررسی نشده";
@@ -98,7 +105,9 @@ function orderStatus($status){
             break;
     }
 }
-function deliveryStatus($status){
+
+function deliveryStatus($status)
+{
     switch ($status) {
         case 0:
             return "ارسال نشده";
@@ -114,7 +123,9 @@ function deliveryStatus($status){
             break;
     }
 }
-function deliveryStatusStyle($status){
+
+function deliveryStatusStyle($status)
+{
     switch ($status) {
         case 0:
             return "text-warning";
@@ -129,4 +140,40 @@ function deliveryStatusStyle($status){
             return "text-secondary";
             break;
     }
+}
+
+function persianToEnglish($num)
+{
+    $num = str_replace('۰', '0', $num);
+    $num = str_replace('۱', '1', $num);
+    $num = str_replace('۲', '2', $num);
+    $num = str_replace('۳', '3', $num);
+    $num = str_replace('۴', '4', $num);
+    $num = str_replace('۵', '5', $num);
+    $num = str_replace('۶', '6', $num);
+    $num = str_replace('۷', '7', $num);
+    $num = str_replace('۸', '8', $num);
+    $num = str_replace('۹', '9', $num);
+    return $num;
+}
+
+function englishToPersian($num)
+{
+    $num = str_replace('0', '۰', $num);
+    $num = str_replace('1', '۱', $num);
+    $num = str_replace('2', '۲', $num);
+    $num = str_replace('3', '۳', $num);
+    $num = str_replace('4', '۴', $num);
+    $num = str_replace('5', '۵', $num);
+    $num = str_replace('6', '۶', $num);
+    $num = str_replace('7', '۷', $num);
+    $num = str_replace('8', '۸', $num);
+    $num = str_replace('9', '۹', $num);
+    return $num;
+}
+
+function priceFormat($price){
+    $price= number_format($price, 0, '/', '،');
+    $price= englishToPersian($price);
+    return $price;
 }

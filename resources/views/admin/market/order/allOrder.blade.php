@@ -48,7 +48,7 @@
                                 <td>{{ $order->order_final_amount -  $order->order_discount_amount }} تومان</td>
                                 <td><span class="{{ paymentsStatusStyle($order->payment_status) }}">{{ paymentsStatus($order->payment_status) }}</span></td>
                                 <td>{{ paymentsType($order->payment_type) }}</td>
-                                <td>{{ $order->payment->paymentable->gateway??"-"}}</td>
+                                <td>{{ $order->payment->paymentable->gateway??"-" }}</td>
                                 <td><span class="{{ deliveryStatusStyle($order->delivery_status) }}">{{ deliveryStatus($order->delivery_status) }}</span></td>
                                 <td>{{ $order->delivery->name }}</td>
                                 <td>{{ orderStatus($order->order_status) }}</td>
@@ -60,13 +60,13 @@
                                             <i class="fas fa-tools mx-1"></i>عملیات</i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownLinkMenu">
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.show', $order->id) }}" class="dropdown-item"><span><i
                                                         class="far fa-eye mx-1"></i></span>مشاهده فاکتور</a>
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.orderStatus', $order->id) }}" class="dropdown-item"><span><i
                                                         class="fa fa-tasks mx-1"></i></span>تغییر وضعیت سفارش</a>
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.sendStatus', $order->id) }}" class="dropdown-item"><span><i
                                                         class="fa fa-truck mx-1"></i></span>تغییر وضعیت ارسال</a>
-                                            <a href="#" class="dropdown-item"><span><i
+                                            <a href="{{ route('admin.market.order.cancelOrder', $order->id) }}" class="dropdown-item"><span><i
                                                         class="fas fa-window-close mx-1"></i></span>باطل کردن سفارش</a>
                                         </div>
                                     </div>

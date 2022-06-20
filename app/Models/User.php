@@ -3,16 +3,13 @@
 namespace App\Models;
 
 use App\Models\Market\Order;
-use App\Models\Market\Orders;
 use App\Models\Payment\Payment;
 use App\Models\Ticket\Ticket;
-use Laravel\Sanctum\HasApiTokens;
 use App\Models\Ticket\TicketAdmin;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -41,6 +38,8 @@ class User extends Authenticatable
         'user_type',
         'status',
         'current_team_id',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**

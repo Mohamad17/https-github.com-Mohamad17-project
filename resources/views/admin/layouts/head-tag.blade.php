@@ -8,3 +8,4 @@
 <link rel="stylesheet" href="{{asset('admin-asset/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('admin-asset/css/grid.css')}}">
 <link rel="stylesheet" href="{{asset('admin-asset/css/style.css')}}">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">

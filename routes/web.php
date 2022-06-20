@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
@@ -32,7 +33,11 @@ use App\Http\Controllers\Admin\Ticket\CategoryTicketController;
 use App\Http\Controllers\Admin\Ticket\PriorityTicketController;
 use App\Http\Controllers\Admin\Content\CommentController as ContentCommentController;
 use App\Http\Controllers\Admin\Content\CategoryController as ContentCategoryController;
+use App\Http\Controllers\Admin\Market\ProductGuaranteeController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
+use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Notification\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,10 +126,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
       Route::get('/unpaid', [OrderController::class, 'unpaid'])->name('admin.market.order.unpaid');
       Route::get('/canceled', [OrderController::class, 'canceled'])->name('admin.market.order.canceled');
       Route::get('/returned', [OrderController::class, 'returned'])->name('admin.market.order.returned');
-      Route::get('/change-send-status', [OrderController::class, 'sendStatus'])->name('admin.market.order.sendStatus');
-      Route::get('/change-order-status', [OrderController::class, 'orderStatus'])->name('admin.market.order.orderStatus');
-      Route::get('/cancel-order', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
-      Route::get('/show/{id}', [OrderController::class, 'showOrder'])->name('admin.market.order.show');
+      Route::get('/change-send-status/{order}', [OrderController::class, 'sendStatus'])->name('admin.market.order.sendStatus');
+      Route::get('/change-order-status/{order}', [OrderController::class, 'orderStatus'])->name('admin.market.order.orderStatus');
+      Route::get('/cancel-order/{order}', [OrderController::class, 'cancelOrder'])->name('admin.market.order.cancelOrder');
+      Route::get('/show/{order}', [OrderController::class, 'showOrder'])->name('admin.market.order.show');
+      Route::get('/details/{order}', [OrderController::class, 'details'])->name('admin.market.order.details');
     });
     //payment group
     Route::prefix('payment')->group(function () {
@@ -154,6 +160,14 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
       Route::get('/color/edit/{color}', [ProductColorController::class, 'edit'])->name('admin.market.product.color.edit');
       Route::put('/color/update/{color}', [ProductColorController::class, 'update'])->name('admin.market.product.color.update');
       Route::delete('/color/delete/{color}', [ProductColorController::class, 'destroy'])->name('admin.market.product.color.destroy');
+      
+      //product guarantee
+      Route::get('/guarantee/{product}', [ProductGuaranteeController::class, 'index'])->name('admin.market.product.guarantee.index');
+      Route::get('/guarantee/create/{product}', [ProductGuaranteeController::class, 'create'])->name('admin.market.product.guarantee.create');
+      Route::post('/guarantee/store/{product}', [ProductGuaranteeController::class, 'store'])->name('admin.market.product.guarantee.store');
+      Route::get('/guarantee/edit/{guarantee}', [ProductGuaranteeController::class, 'edit'])->name('admin.market.product.guarantee.edit');
+      Route::put('/guarantee/update/{guarantee}', [ProductGuaranteeController::class, 'update'])->name('admin.market.product.guarantee.update');
+      Route::delete('/guarantee/delete/{guarantee}', [ProductGuaranteeController::class, 'destroy'])->name('admin.market.product.guarantee.destroy');
       
       //product gallery
       Route::get('/gallery/{product}', [ProductGalleryController::class, 'index'])->name('admin.market.product.gallery.index');
@@ -249,6 +263,16 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
       Route::delete('/delete/{post}', [PostController::class, 'destroy'])->name('admin.content.post.destroy');
       Route::get('/status/{post}', [PostController::class, 'status'])->name('admin.content.post.status');
       Route::get('/commentable/{post}', [PostController::class, 'commentable'])->name('admin.content.post.commentable');
+    });
+    // banners group
+    Route::prefix('banner')->group(function () {
+      Route::get('/', [BannerController::class, 'index'])->name('admin.content.banner.index');
+      Route::get('/create', [BannerController::class, 'create'])->name('admin.content.banner.create');
+      Route::post('/store', [BannerController::class, 'store'])->name('admin.content.banner.store');
+      Route::get('/edit/{banner}', [BannerController::class, 'edit'])->name('admin.content.banner.edit');
+      Route::put('/update/{banner}', [BannerController::class, 'update'])->name('admin.content.banner.update');
+      Route::delete('/delete/{banner}', [BannerController::class, 'destroy'])->name('admin.content.banner.destroy');
+      Route::get('/status/{banner}', [BannerController::class, 'status'])->name('admin.content.banner.status');
     });
   });
 
@@ -374,6 +398,28 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/edit/{setting}', [SettingController::class, 'edit'])->name('admin.setting.edit');
     Route::put('/update/{setting}', [SettingController::class, 'update'])->name('admin.setting.update');
   });
+});
+
+// notifications group
+Route::prefix('notification')->namespace('Notification')->group(function () {
+  Route::get('/', [NotificationController::class, 'index'])->name('notification.index');
+  Route::post('/read-all', [NotificationController::class, 'readAll'])->name('notification.read-all');
+});
+
+// customer group
+Route::namespace('Customer')->group(function () {
+  Route::get('/', [HomeController::class, 'index'])->name('customer.index');
+  Route::get('/home', [HomeController::class, 'index'])->name('customer.home');
+});
+
+// login register routes
+Route::namespace('Auth')->group(function () {
+  Route::get('/login-register-form', [LoginRegisterController::class, 'LoginRegisterForm'])->name('customer.auth.login-register-form');
+  Route::middleware('throttle:customer-login-register-limit')->post('/login-register', [LoginRegisterController::class, 'LoginRegister'])->name('customer.auth.login-register');
+  Route::get('/login-confirm-form/{token}', [LoginRegisterController::class, 'loginConfirmForm'])->name('customer.auth.login-confirm-form');
+  Route::middleware('throttle:customer-send-token-limit')->post('/login-confirm/{token}', [LoginRegisterController::class, 'loginConfirm'])->name('customer.auth.login-confirm');
+  Route::middleware('throttle:customer-resend-token-limit')->get('/login-resend-otp/{token}', [LoginRegisterController::class, 'loginResendOtp'])->name('customer.auth.login-resend-otp');
+  Route::get('/logout', [LoginRegisterController::class, 'logout'])->name('customer.auth.logout');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
