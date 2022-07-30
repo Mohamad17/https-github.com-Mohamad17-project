@@ -21,15 +21,15 @@ return [
     'index-image-sizes' => [
         'large' => [
             'width' => 800,
-            'height' => 600
+            'height' => 800
         ],
         'medium' => [
-            'width' => 400,
-            'height' => 300
+            'width' => 350,
+            'height' => 350
         ],
         'small' => [
             'width' => 80,
-            'height' => 60
+            'height' => 80
         ],
 
     ],

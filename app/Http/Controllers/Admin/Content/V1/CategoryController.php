@@ -7,11 +7,13 @@ use App\Http\Resources\Admin\Content\V1\CategoryApi;
 use App\Models\Content\PostCategory;
 use App\Http\Services\Image\ImageService;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
+use App\Http\Traits\ApiTrait\ApiResponser;
 use Illuminate\Http\Request;
 
 
 class CategoryController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +22,8 @@ class CategoryController extends Controller
     public function index()
     {
         $postCategories = PostCategory::all();
-        return new CategoryApi($postCategories);
+        return $this->successResponse($postCategories, 200);
+        // return $this->errorResponse(400, 'not found');
     }
 
     /**
@@ -55,12 +58,8 @@ class CategoryController extends Controller
             $inputs['image'] = $image;
         }
         
-        PostCategory::create($inputs);
-        return response()->json([
-            'data'=>[
-                'message'=> 'ثبت دسته بندی با موفقیت انجام شد',
-            ],
-        ]);
+        $data= PostCategory::create($inputs);
+        return $this->successResponse($data,201, 'ثبت دسته بندی با موفقیت انجام شد');
     }
 
     

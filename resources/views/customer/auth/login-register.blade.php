@@ -13,6 +13,9 @@
             @error('token')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
+            @error('add-to-cart')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
             <form action="{{ route('customer.auth.login-register') }}" method="POST">
                 @csrf
                 <section class="text-2xl font-bold text-purple-600">ورود / ثبت نام</section>

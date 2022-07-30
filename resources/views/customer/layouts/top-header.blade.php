@@ -4,7 +4,8 @@
          <section class="d-md-flex justify-content-md-between align-items-md-center py-3">
 
              <section class="d-flex justify-content-between align-items-center d-md-block">
-                 <a class="text-decoration-none" href="index.html"><img src="assets/images/logo/8.png" alt="logo"></a>
+                 <a class="text-decoration-none" href="{{ route('customer.home') }}"><img src="assets/images/logo/8.png"
+                         alt="logo"></a>
                  <button class="btn btn-link text-dark d-md-none" type="button" data-bs-toggle="offcanvas"
                      data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                      <i class="fa fa-bars me-1"></i>
@@ -15,8 +16,7 @@
                  <section class="search-box">
                      <section class="search-textbox">
                          <span><i class="fa fa-search"></i></span>
-                         <input id="search" type="text" class="" placeholder="جستجو ..."
-                             autocomplete="off">
+                         <input id="search" type="text" class="" placeholder="جستجو ..." autocomplete="off">
                      </section>
                      <section class="search-result visually-hidden">
                          <section class="search-result-title">نتایج جستجو برای <span class="search-words">"موبایل
@@ -74,46 +74,60 @@
                      </section>
                  @endguest
                  <section class="header-cart d-inline ps-3 border-start position-relative">
-                     <a class="btn btn-link position-relative text-dark header-cart-link" href="javascript:void(0)">
-                         <i class="fa fa-shopping-cart"></i> <span style="top: 80%;"
-                             class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
+                     <a class="btn btn-link position-relative text-dark header-cart-link"
+                         href="{{ route('customer.sales-process.cart') }}">
+                         <i class="fa fa-shopping-cart"></i>
+                         @auth
+                            @if (count($cartItems) != 0)
+                                 <span style="top: 80%;"
+                                     class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">{{ count($cartItems) }}</span>
+                            @endif
+                        @endauth
                      </a>
-                     <section class="header-cart-dropdown">
-                         <section class="border-bottom d-flex justify-content-between p-2">
-                             <span class="text-muted">2 کالا</span>
-                             <a class="text-decoration-none text-info" href="cart.html">مشاهده سبد خرید </a>
-                         </section>
-                         <section class="header-cart-dropdown-body">
+                     @auth
 
+                         <section class="header-cart-dropdown">
+                             <section class="border-bottom d-flex justify-content-between p-2">
+                                 <span class="text-muted">{{ count($cartItems) }} کالا</span>
+                                 <a class="text-decoration-none text-info"
+                                     href="{{ route('customer.sales-process.cart') }}">مشاهده سبد خرید </a>
+                             </section>
+                             @php
+                                $totalProductPrice = 0;
+                                $totalDiscount = 0;
+                            @endphp
+                             <section class="header-cart-dropdown-body">
+                                 @foreach ($cartItems as $cartItem)
+                                    @php
+                                    $totalProductPrice += $cartItem->cartItemProductPrice() * $cartItem->number;
+                                    $totalDiscount += $cartItem->cartItemProductDiscount() * $cartItem->number;
+                                    $finalPrice = $cartItem->cartItemFinalPrice();
+                                    @endphp
+                                     <section
+                                         class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
+                                         <img class="flex-shrink-1" src="{{ asset($cartItem->product->image['indexArray']['small']) }}" alt="{{ $cartItem->product->name }}">
+                                         <section class="w-100 text-truncate"><a class="text-decoration-none text-dark"
+                                                 href="{{ route('customer.market.product', $cartItem->product->slug) }}">{{ $cartItem->product->name }}</a>
+                                         </section>
+                                         <section class="flex-shrink-1"><button type="button"
+                                                 class="text-muted text-decoration-none p-1 removeItemCart"
+                                                 data-url="{{ route('customer.sales-process.remove-from-cart', $cartItem->id) }}"><i
+                                                     class="fa fa-trash-alt"></i></button></section>
+                                     </section>
+                                 @endforeach
+                             </section>
                              <section
-                                 class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                 <img class="flex-shrink-1" src="assets/images/products/1.jpg" alt="">
-                                 <section class="w-100 text-truncate"><a class="text-decoration-none text-dark"
-                                         href="#">کتاب اثر مرکب اثر دارن هاردی انتشارات معیار علم</a></section>
-                                 <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1"
-                                         href="#"><i class="fa fa-trash-alt"></i></a></section>
+                                 class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
+                                 <section class="">
+                                     <section>مبلغ قابل پرداخت</section>
+                                     <section> <span>{{ priceFormat($totalProductPrice - $totalDiscount) }}</span> تومان</section>
+                                 </section>
+                                 <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت
+                                         سفارش</a></section>
                              </section>
-
-                             <section
-                                 class="header-cart-dropdown-body-item d-flex justify-content-start align-items-center">
-                                 <img class="flex-shrink-1" src="assets/images/products/2.jpg" alt="">
-                                 <section class="w-100 text-truncate"><a class="text-decoration-none text-dark"
-                                         href="#">دستگاه آبمیوه گیری دنویر با کد 1016</a></section>
-                                 <section class="flex-shrink-1"><a class="text-muted text-decoration-none p-1"
-                                         href="#"><i class="fa fa-trash-alt"></i></a></section>
-                             </section>
-
                          </section>
-                         <section
-                             class="header-cart-dropdown-footer border-top d-flex justify-content-between align-items-center p-2">
-                             <section class="">
-                                 <section>مبلغ قابل پرداخت</section>
-                                 <section> 1,326,000 تومان</section>
-                             </section>
-                             <section class=""><a class="btn btn-danger btn-sm d-block"
-                                     href="cart.html">ثبت سفارش</a></section>
-                         </section>
-                     </section>
+                     @endauth
+
                  </section>
              </section>
          </section>

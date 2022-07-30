@@ -9,12 +9,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-    Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::prefix('admin')->group(function () {
         //api version 1
-        Route::prefix('content')->namespace('Content')->group(function () {
+        Route::prefix('content')->group(function () {
         
         // market group
-        Route::prefix('v1')->namespace('V1')->group(function () {
+        Route::prefix('v1')->group(function () {
             // category
             Route::prefix('category')->group(function () {
                 Route::get('/', [ContentCategoryController::class, 'index']);

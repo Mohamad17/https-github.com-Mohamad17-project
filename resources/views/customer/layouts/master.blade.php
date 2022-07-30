@@ -36,6 +36,13 @@
     </footer>
     @include('customer.layouts.scripts')
     @yield('script')
+    <section class="toast-wrapper flex-row-reverse position-fixed p-3" style="z-index: 909999999; left: 0; top: 3rem; width: 26rem; max-width: 80%;">
+        @include('customer.alerts.toast.success')
+        @include('customer.alerts.toast.error')
+    </section>
+   
+    @include('customer.alerts.sweetalert.success')
+    @include('customer.alerts.sweetalert.error')
 </body>
 
 </html>

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\Content\Comment;
-
+use App\Models\User;
+use Illuminate\Support\Carbon;
 
 class Product extends Model
 {
@@ -29,6 +30,9 @@ class Product extends Model
     }
     public function brand(){
         return $this->belongsTo(Brand::class);
+    }
+    public function user(){
+        return $this->belongsToMany(User::class);
     }
     public function metas(){
         return $this->hasMany(ProductMeta::class);
@@ -57,4 +61,9 @@ class Product extends Model
     public function comments(){
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function activeAmazingSale(){
+        return $this->amazingSales()->where('start_date', '<', Carbon::now())->where('end_date', '>', Carbon::now())->where('status', 1)->first();
+    }
+
 }

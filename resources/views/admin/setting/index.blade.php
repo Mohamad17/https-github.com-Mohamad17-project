@@ -35,10 +35,10 @@
 							<td>{{ $setting->title }}</td>
 							<td>{{ $setting->description }}</td>
 							<td>{{ $setting->keywords }}</td>
-							<td><img src="{{ asset($setting->icon) }}"
-								alt="icon" class="img-fluid" width="50"></td>
 							<td><img src="{{ asset($setting->logo) }}"
 								alt="logo" class="img-fluid" width="50"></td>
+							<td><img src="{{ asset($setting->icon) }}"
+								alt="icon" class="img-fluid" width="50"></td>
 							<td class="width-16rem">
                                 <a href="{{ route('admin.setting.edit', $setting->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit mx-1"></i>ویرایش</a>
                             </td>

@@ -247,18 +247,24 @@ $(document).ready(function() {
 
 
 
-//start product introduction, features and comment
-$(document).ready(function() {
-    var s = $("#introduction-features-comments");
-    var pos = s.position();
-    $(window).scroll(function() {
-        var windowpos = $(window).scrollTop();
-
-        if (windowpos >= pos.top) {
-            s.addClass("stick");
-        } else {
-            s.removeClass("stick");
-        }
+// remove item from cart
+$(document).ready(function(){
+     $('.removeItemCart').click(function(){
+        var url= $(this).attr('data-url');
+        var element= $(this);
+        $.ajax({
+            url: url,
+            method: 'get',
+            success: function(response){
+                if(response.status== 1){
+                   element.parent().parent().remove();
+                   finalPrice(); 
+                }else if(response.status== 2){
+                    $('.removeItemToast').toast('show');
+                }
+            },
+        })
     });
 });
-//end product introduction, features and comment
+
+// end remove item from cart

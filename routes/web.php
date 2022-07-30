@@ -37,6 +37,8 @@ use App\Http\Controllers\Admin\Market\ProductGuaranteeController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\Market\ProductController as MarketProductController;
+use App\Http\Controllers\Customer\SalesProcess\CartController;
 use App\Http\Controllers\Notification\NotificationController;
 
 /*
@@ -410,6 +412,20 @@ Route::prefix('notification')->namespace('Notification')->group(function () {
 Route::namespace('Customer')->group(function () {
   Route::get('/', [HomeController::class, 'index'])->name('customer.index');
   Route::get('/home', [HomeController::class, 'index'])->name('customer.home');
+  Route::prefix('market')->namespace('Market')->group(function () {
+    //product page routes
+    Route::get('/product/{product:slug}', [MarketProductController::class, 'product'])->name('customer.market.product');
+    Route::post('add-comment/product/{product}', [MarketProductController::class, 'addComment'])->name('customer.market.addComment');
+    Route::get('add-to-favorite/product/{product}', [MarketProductController::class, 'addToFavorite'])->name('customer.market.addToFavorite');
+  });
+
+  //sale process routes
+  Route::prefix('sales-process')->group(function () {
+    Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
+    Route::post('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
+    Route::put('/update-cart/{cartItem}', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
+    Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.sales-process.remove-from-cart');
+  });
 });
 
 // login register routes

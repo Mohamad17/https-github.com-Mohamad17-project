@@ -12,8 +12,9 @@ class CategoryValue extends Model
     protected $fillable= ['product_id', 'category_attribute_id', 'value', 'type'];
 
     public function attribute(){
-        return $this->belongsTo(CategoryAttribute::class);
+        return $this->belongsTo(CategoryAttribute::class, 'category_attribute_id');
     }
+
     public function product(){
         return $this->belongsTo(Product::class);
     }

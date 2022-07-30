@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Content\Comment;
 use App\Models\Notification;
 use Facade\FlareClient\View;
+use App\Models\Content\Comment;
+use App\Models\Market\CartItem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +36,14 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('admin.layouts.header', function ($view) {
             $unseenNotify= Notification::where('read_at', null)->orderBy('created_at', 'desc')->get();
             $view->with('unseenNotify', $unseenNotify);
+        });
+
+        view()->composer('customer.layouts.top-header', function($view){
+            if(Auth::check()){
+                $user= Auth::user();
+                $cartItems= CartItem::where('user_id', $user->id)->get();
+                $view->with('cartItems', $cartItems);
+            }
         });
     }
 }

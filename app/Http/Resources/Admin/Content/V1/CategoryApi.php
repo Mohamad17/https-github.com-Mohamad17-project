@@ -15,12 +15,7 @@ class CategoryApi extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data'=> $this->collection->map(function($category){
-               return[
-                   'name'=>$category->name,
-                   'created_at'=> $category->created_at,
-               ];
-            }),
+            'data'=> $this->collection,
         ];
     }
 }
