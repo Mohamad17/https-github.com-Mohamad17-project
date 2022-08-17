@@ -38,7 +38,9 @@ use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\Market\ProductController as MarketProductController;
+use App\Http\Controllers\Customer\SalesProcess\CompletionSaleController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
+use App\Http\Controllers\Customer\SalesProcess\CompletionProfileController;
 use App\Http\Controllers\Notification\NotificationController;
 
 /*
@@ -421,10 +423,21 @@ Route::namespace('Customer')->group(function () {
 
   //sale process routes
   Route::prefix('sales-process')->group(function () {
+    // cart
     Route::get('/cart', [CartController::class, 'cart'])->name('customer.sales-process.cart');
     Route::post('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('customer.sales-process.add-to-cart');
-    Route::put('/update-cart/{cartItem}', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
+    Route::post('/update-cart', [CartController::class, 'updateCart'])->name('customer.sales-process.update-cart');
     Route::get('/remove-from-cart/{cartItem}', [CartController::class, 'removeFromCart'])->name('customer.sales-process.remove-from-cart');
+
+    //completion sale
+    Route::middleware('complete.profile')->group(function(){
+      Route::get('/completion-sale', [CompletionSaleController::class, 'completionSale'])->name('customer.sales-process.completion-sale');
+      Route::post('/completion-sale/set-address-delivery', [CompletionSaleController::class, 'setAddressAndDelivery'])->name('customer.sales-process.completion-sale.set-address-delivery');
+    });
+    
+    //completion profile
+    Route::get('/completion-profile', [CompletionProfileController::class, 'completionProfile'])->name('customer.sales-process.completion-profile');
+    Route::put('/completion-profile/update', [CompletionProfileController::class, 'update'])->name('customer.sales-process.completion-profile.update');
   });
 });
 

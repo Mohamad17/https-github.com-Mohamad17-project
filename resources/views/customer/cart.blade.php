@@ -26,8 +26,9 @@
                     @endphp
                     <section class="row mt-4">
                         <section class="col-md-9 mb-3">
-                            <form id="cart_items" class="content-wrapper bg-white p-3 rounded-2" action=""
+                            <form id="cart_items" class="content-wrapper bg-white p-3 rounded-2" action="{{ route('customer.sales-process.update-cart') }}"
                                 method="post">
+                                @csrf
                                 @foreach ($cartItems as $cartItem)
                                     @php
                                         $totalProductPrice += $cartItem->cartItemProductPrice() * $cartItem->number;
@@ -64,7 +65,7 @@
                                                     در انبار</span></p>
                                             <section class="cart-product-number d-inline-block ">
                                                 <button class="cart-number cart-number-down" type="button">-</button>
-                                                <input class="number" type="number" min="1"
+                                                <input class="number" name="number[{{ $cartItem->id }}]" type="number" min="1"
                                                     data-cart-id="{{ $cartItem->id }}"
                                                     data-product-price="{{ $cartItem->cartItemProductPrice() }}"
                                                     step="1" value="{{ $cartItem->number }}" readonly="readonly">
@@ -129,7 +130,7 @@
 
 
                                 <section class="">
-                                    <a href="address.html" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                    <button type="button" onclick="document.getElementById('cart_items').submit()" class="btn btn-danger d-block">تکمیل فرآیند خرید</button>
                                 </section>
                                 </form>
                             </section>

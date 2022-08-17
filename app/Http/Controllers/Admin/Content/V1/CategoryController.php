@@ -2,35 +2,34 @@
 
 namespace App\Http\Controllers\Admin\Content\V1;
 
+use App\Models\Content\Post;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\Content\V1\CategoryApi;
 use App\Models\Content\PostCategory;
 use App\Http\Services\Image\ImageService;
-use App\Http\Requests\Admin\Content\PostCategoryRequest;
 use App\Http\Traits\ApiTrait\ApiResponser;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Content\PostCategoryRequest;
+use App\Http\Resources\Admin\Content\V1\PostCategoryResource;
+use App\Http\Resources\Admin\Content\V1\PostCategoryCollection;
 
 
 class CategoryController extends Controller
 {
     use ApiResponser;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $postCategories = PostCategory::all();
-        return $this->successResponse($postCategories, 200);
+        // return $this->successResponse($postCategories, 200);
         // return $this->errorResponse(400, 'not found');
+        // return new PostCategoryCollection($postCategories);
+        // return (new PostCategoryCollection($postCategories))->additional([
+        //     'manchester' => ['red' => 'united']
+        // ]);
+        return PostCategoryResource::collection($postCategories->load("posts"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         //
@@ -63,42 +62,52 @@ class CategoryController extends Controller
     }
 
     
-    public function show($id)
+    public function show(PostCategory $postCategory)
     {
-        //
+        return (new PostCategoryResource($postCategory))->additional([
+                    'manchester' => ['red' => 'united']
+                ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(PostCategoryRequest $request, ImageService $imageService, PostCategory $postCategory)
     {
-        //
+        $inputs= $request->all();
+        // return response()->json($request->image);
+        if (isset($request->validator) && $request->validator->fails()) {
+            return response()->json($request->validator->errors());
+        }
+       
+        if($request->hasFile('image')){
+            if(!empty($inputs['image'])){
+                $imageService->deleteDirectoryAndFiles($postCategory->image['directory']);
+            }
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'post-category');
+            $image= $imageService->createIndexAndSave($request->file('image'));
+            if($image === false)
+            {
+                return response()->json([
+                    'data'=>[
+                        'message'=> 'آپلود تصویر با خطا مواجه شد',
+                    ],
+                ]);
+            }
+            $inputs['image'] = $image;
+        }
+        
+        $data= $postCategory->update($inputs);
+        return $this->successResponse($data,201, 'ویرایش دسته بندی با موفقیت انجام شد');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    
+    public function destroy(PostCategory $postCategory)
     {
-        //
+        $data= $postCategory->delete();
+        return $this->successResponse($data,201, 'حذف دسته بندی با موفقیت انجام شد');
     }
 }

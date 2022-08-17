@@ -198,5 +198,7 @@ return array(
         'user_id'=> 'کاربر',
         'confirm-code'=> 'کد تأیید',
         'color'=> 'رنگ',
+        'national_code'=> 'کد ملی',
+        'postal_code'=> 'کد پستی',
     ),
 );

@@ -50,6 +50,8 @@
                          </button>
                          <section class="dropdown-menu dropdown-menu-end custom-drop-down"
                              aria-labelledby="dropdownMenuButton1">
+                             <section><span class="dropdown-item"><i
+                                         class="fa fa-user-circle"></i>{{ Auth::user()->full_name }}</span></section>
                              <section><a class="dropdown-item" href="my-profile.html"><i
                                          class="fa fa-user-circle"></i>پروفایل کاربری</a></section>
                              <section><a class="dropdown-item" href="my-orders.html"><i

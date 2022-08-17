@@ -21,4 +21,8 @@ class PostCategory extends Model
 
     protected $fillable= ['name', 'description', 'slug', 'image', 'status', 'tags'];
     protected $casts= ['image'=> 'array'];
+
+    public function posts(){
+        return $this->hasMany(Post::class, 'category_id');
+    }
 }

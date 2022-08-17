@@ -6,6 +6,7 @@ use App\Models\Notification;
 use Facade\FlareClient\View;
 use App\Models\Content\Comment;
 use App\Models\Market\CartItem;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
