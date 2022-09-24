@@ -200,5 +200,10 @@ return array(
         'color'=> 'رنگ',
         'national_code'=> 'کد ملی',
         'postal_code'=> 'کد پستی',
+        'no'=> 'پلاک',
+        'province'=> 'استان',
+        'recipient_first_name'=> 'نام گیرنده',
+        'recipient_last_name'=> 'نام خانوادگی گیرنده',
+        'my_self_reciever'=> 'گیرنده خودم',
     ),
 );

@@ -433,6 +433,8 @@ Route::namespace('Customer')->group(function () {
     Route::middleware('complete.profile')->group(function(){
       Route::get('/completion-sale', [CompletionSaleController::class, 'completionSale'])->name('customer.sales-process.completion-sale');
       Route::post('/completion-sale/set-address-delivery', [CompletionSaleController::class, 'setAddressAndDelivery'])->name('customer.sales-process.completion-sale.set-address-delivery');
+      Route::put('/completion-sale/update-address-delivery/{address}', [CompletionSaleController::class, 'updateAddressAndDelivery'])->name('customer.sales-process.completion-sale.update-address-delivery');
+      Route::get('/completion-sale/set-address-delivery/get-cities/{province}', [CompletionSaleController::class, 'getCities'])->name('customer.sales-process.completion-sale.set-address-delivery.get-cities');
     });
     
     //completion profile

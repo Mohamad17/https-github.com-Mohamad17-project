@@ -244,4 +244,19 @@ function validateNationalCode($nationalCode)
     }
 }
 
+function cartItemsTotalAll($cartItems){
+        $totalProductPrice = 0;
+        $totalDiscount = 0;
+        foreach($cartItems as $item){
+            $totalProductPrice += $item->cartItemProductPrice() * $item->number;
+            $totalDiscount += $item->cartItemProductDiscount() * $item->number;
+        }
+            $finalPrice = $totalProductPrice - $totalDiscount;
+        return [
+            'totalProductPrice' => $totalProductPrice,
+            'totalDiscount' => $totalDiscount,
+            'finalPrice' => $finalPrice
+                ];
+    }
+
 

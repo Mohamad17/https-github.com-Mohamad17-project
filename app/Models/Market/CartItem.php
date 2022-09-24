@@ -49,5 +49,4 @@ class CartItem extends Model
     public function cartItemFinalDiscont(){
         return $this->number* $this->cartItemProductDiscount();
     }
-   
 }

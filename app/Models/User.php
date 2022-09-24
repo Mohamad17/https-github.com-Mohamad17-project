@@ -6,12 +6,13 @@ use App\Models\Market\Order;
 use App\Models\Payment\Payment;
 use App\Models\Ticket\Ticket;
 use App\Models\Ticket\TicketAdmin;
-use Laravel\Jetstream\HasProfilePhoto;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Fortify\TwoFactorAuthenticatable;
+use App\Models\User\Address;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 
 class User extends Authenticatable
 {
@@ -64,11 +65,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
+  
     protected $appends = [
         'profile_photo_url',
     ];
@@ -91,5 +88,9 @@ class User extends Authenticatable
     }
     public function orders(){
         return $this->hasMany(Order::class);
+    }
+    
+    public function addresses(){
+        return $this->hasMany(Address::class, 'user_id');
     }
 }

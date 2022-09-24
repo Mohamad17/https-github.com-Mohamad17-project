@@ -66,11 +66,6 @@ class CartController extends Controller
 
     public function updateCart(Request $request)
     {
-        // dd('update caart');
-        // $request->validate([
-        //     'number' => 'numeric|nullable'
-        // ]);
-
         $inputs = $request->all();
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         foreach ($cartItems as $cartItem) {

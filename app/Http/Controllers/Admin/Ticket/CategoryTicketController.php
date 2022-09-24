@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Ticket;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Ticket\TicketCategoryًRequest;
+use App\Http\Requests\Admin\Ticket\TicketCategoryRequest;
 use App\Models\Ticket\TicketCategory;
 
 class CategoryTicketController extends Controller
@@ -22,7 +22,7 @@ class CategoryTicketController extends Controller
     }
 
     
-    public function store(TicketCategoryًRequest $request)
+    public function store(TicketCategoryRequest $request)
     {
         $inputs= $request->all();
         TicketCategory::create($inputs);
@@ -36,7 +36,7 @@ class CategoryTicketController extends Controller
     }
 
    
-    public function update(TicketCategoryًRequest $request, TicketCategory $categoryTicket)
+    public function update(TicketCategoryRequest $request, TicketCategory $categoryTicket)
     {
         $inputs= $request->all();
         $categoryTicket->update($inputs);
